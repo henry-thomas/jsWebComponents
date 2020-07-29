@@ -5,19 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./smdui-tabs/smdui-tabs.js"></script>
+    <script src="./smdui-card/smdui-card.js"></script>
     <title>SMDUI-Comp-Test</title>
 </head>
 
 <style>
     .wrapper2 {
-        max-width: 800px;
+        /* max-width: 150px; */
         height: fit-content;
-        border: 1px solid grey;
+        border: 3px solid grey;
     }
     
     .content-div {
         height: 500px;
         border-top: 2px solid grey;
+        display: flex;
+        ;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 </style>
 
@@ -25,7 +31,11 @@
 
     <div class="wrapper2">
         <smdui-tabs></smdui-tabs>
-        <div class='content-div'></div>
+        <div class='content-div'>
+            <smdui-card>
+
+            </smdui-card>
+        </div>
     </div>
 
 </body>
@@ -35,6 +45,10 @@
         let tabs = document.querySelector('smdui-tabs');
         tabs.addTab("Tabs Number " + i, () => console.log(i));
     }
+
+    let card = document.querySelector('smdui-card');
+    // card.setAttribute('heading', 'hello')
+    card.setHeading('Solar MD');
 </script>
 
 </html>
