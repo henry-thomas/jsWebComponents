@@ -2,7 +2,7 @@ class Tabs extends HTMLElement {
     constructor() {
         super();
         this._wrapper;
-
+        this.attachShadow({ mode: 'open' });
     }
 
     connectedCallback() {
@@ -15,15 +15,16 @@ class Tabs extends HTMLElement {
         this._wrapper.classList.add('wrapper');
 
         //attach to component
-        this.appendChild(linkElem);
-        this.appendChild(this._wrapper);
+        this.shadowRoot.appendChild(linkElem);
+        this.shadowRoot.appendChild(this._wrapper);
     }
 
     addTab(name, cb) {
 
         const tab = document.createElement('div');
         tab.classList.add('tab');
-        tab.addEventListener('click', cb.bind(this))
+        tab.addEventListener('click', cb.bind(this));
+        // tab.onclick(tab.classList.add('selected'));
 
         this._wrapper.appendChild(tab);
 

@@ -8,14 +8,32 @@
     <title>SMDUI-Comp-Test</title>
 </head>
 
+<style>
+    .wrapper2 {
+        max-width: 800px;
+        height: fit-content;
+        border: 1px solid black;
+    }
+    
+    .content-div {
+        height: 500px;
+        border-top: 2px solid grey;
+    }
+</style>
+
 <body>
-    <smdui-tabs></smdui-tabs>
+
+    <div class="wrapper2">
+        <smdui-tabs></smdui-tabs>
+        <div class='content-div'></div>
+    </div>
+
 </body>
 
 <script>
     for (let i = 0; i < 15; i++) {
         let tabs = document.querySelector('smdui-tabs');
-        tabs.addTab('Test', () => console.log(i));
+        tabs.addTab("Tabs Number " + i, () => console.log(i));
     }
 </script>
 
