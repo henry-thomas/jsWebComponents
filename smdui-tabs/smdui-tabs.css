@@ -1,7 +1,7 @@
 .wrapper {
     width: fit-content;
     height: auto;
-    background-color: lightgrey;
+    background-color: white;
     border: 1px solid grey;
     display: flex;
     flex-direction: row;
@@ -12,26 +12,39 @@
 .tab {
     width: fit-content;
     min-width: 35px;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    margin: 0.1rem;
+    padding: 0.5rem;
+    /* padding-right: 0.5rem; */
+    margin: 0.2rem;
     height: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 2px solid rgb(139, 139, 139);
+    border: 2px solid white;
+    /* border: 2px solid rgb(139, 139, 139); */
     /* border-top: 2px solid rgb(139, 139, 139); */
-    /* border-bottom: 2px solid rgb(139, 139, 139); */
+    /* border-bottom: 2px solid rgb(255, 0, 85); */
 }
 
 .tab:hover {
-    background-color: rgb(151, 151, 151);
+    /* background-color: rgb(151, 151, 151); */
     /* box-shadow: 1px 1px rgba(0, 0, 0, 0.5); */
+    border-bottom: 2px solid lightgrey;
     transition: all ease-in 0.2s;
     cursor: pointer;
 }
 
+.selected {
+    border-bottom: 2px solid rgb(255, 0, 85);
+    transition: all ease-in 0.4s;
+}
+
 .tab-content {
-    font-family: sans-serif;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+    font-size: 14px;
+    color: lightslategrey;
+}
+
+.selected span {
+    color: mediumblue;
 }

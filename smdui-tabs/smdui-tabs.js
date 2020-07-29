@@ -2,6 +2,7 @@ class Tabs extends HTMLElement {
     constructor() {
         super();
         this._wrapper;
+        this.tabsArr = [];
         this.attachShadow({ mode: 'open' });
     }
 
@@ -23,7 +24,10 @@ class Tabs extends HTMLElement {
 
         const tab = document.createElement('div');
         tab.classList.add('tab');
-        tab.addEventListener('click', cb.bind(this));
+        tab.addEventListener('click', () => {
+            cb.bind(this);
+            this._toggleSelected(tab);
+        });
         // tab.onclick(tab.classList.add('selected'));
 
         this._wrapper.appendChild(tab);
@@ -32,6 +36,16 @@ class Tabs extends HTMLElement {
         tabContent.classList.add('tab-content');
         tab.appendChild(tabContent);
         tabContent.innerHTML = name;
+        this.tabsArr.push(tab);
+    }
+
+    _toggleSelected(tab) {
+        let selectedTab = tab;
+        for (let i = 0; i < this._wrapper.children.length; i++) {
+            this.tabsArr[i].classList.remove('selected');
+        }
+        selectedTab.classList.add('selected');
+
     }
 }
 
