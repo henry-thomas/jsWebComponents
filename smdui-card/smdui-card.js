@@ -5,10 +5,13 @@ class Card extends HTMLElement {
         this._wrapper;
         this.headingSpan;
         this.contentDiv;
+        this.contentItems = [];
     }
 
     connectedCallback() {
-        this.heading = this.getAttribute('heading');
+        if (this.hasAttribute('heading')) {
+            this.heading = this.getAttribute('heading');
+        }
 
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
@@ -37,16 +40,28 @@ class Card extends HTMLElement {
 
     setHeading(heading) {
         this.setAttribute('heading', heading);
+        return this;
     }
 
     addContent(content) { //Allows to insert content rather than using slot. Should be styled before.
         try {
             this.contentDiv.appendChild(content);
+            this.contentItems.push(content);
         } catch {
             let message = content + " Should be an html element. May have nested elements, but only one parent.";
             console.warn(message);
         }
+        return this;
+    }
 
+    removeContent(index) {
+        try {
+            for (let i = 0; i < this.contentItems.length; i++) {
+                this.contentItems.splice(0, 1);
+            }
+        } catch (error) {
+            console.warn(error);
+        }
     }
 
     static get observedAttributes() {

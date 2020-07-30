@@ -2,6 +2,7 @@ class Tabs extends HTMLElement {
     constructor() {
         super();
         this._wrapper;
+        this.selectedTab;
         this.tabsArr = [];
         this.attachShadow({ mode: 'open' });
     }
@@ -18,6 +19,11 @@ class Tabs extends HTMLElement {
         //attach to component
         this.shadowRoot.appendChild(linkElem);
         this.shadowRoot.appendChild(this._wrapper);
+
+        // if (this.selectedTab === undefined) {
+        //     this.selectedTab = this.tabsArr[0];
+        //     this.setSelected(this.selectedTab);
+        // }
     }
 
     addTab(name, cb) {
@@ -26,20 +32,24 @@ class Tabs extends HTMLElement {
         tab.classList.add('tab');
         tab.addEventListener('click', () => {
             cb.bind(this);
-            this._toggleSelected(tab);
+            this.setSelected(tab);
         });
-        // tab.onclick(tab.classList.add('selected'));
-
         this._wrapper.appendChild(tab);
 
         const tabContent = document.createElement('span');
         tabContent.classList.add('tab-content');
         tab.appendChild(tabContent);
         tabContent.innerHTML = name;
+
         this.tabsArr.push(tab);
+
+        if (this.selectedTab === undefined) {
+            this.selectedTab = this.tabsArr[0];
+            this.setSelected(this.selectedTab);
+        }
     }
 
-    _toggleSelected(tab) {
+    setSelected(tab) {
         let selectedTab = tab;
         for (let i = 0; i < this._wrapper.children.length; i++) {
             this.tabsArr[i].classList.remove('selected');

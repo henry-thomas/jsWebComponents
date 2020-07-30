@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./smdui-tabs/smdui-tabs.js"></script>
     <script src="./smdui-card/smdui-card.js"></script>
+    <script src="./smdui-name-value/smdui-name-value.js"></script>
+
     <title>SMDUI-Comp-Test</title>
 </head>
 
@@ -36,14 +38,7 @@
         <smdui-tabs></smdui-tabs>
         <div class='content-div'>
             <smdui-card>
-
-                <!-- <span slot="content-slot">Content Slot</span>
-                <span slot="content-slot">Content Slot</span>
-                <span slot="content-slot">Content Slot</span>
-                <span slot="content-slot">Content Slot</span>
-                <span slot="content-slot">Content Slot</span>
-                <span slot="content-slot">Content Slot slot="content-slot" </span> -->
-
+                <!-- <smdui-name-value style="width: 200px;" slot="content-slot" item-name="name" item-value="13" item-unit="kW"></smdui-name-value> -->
             </smdui-card>
         </div>
     </div>
@@ -51,24 +46,28 @@
 </body>
 
 <script>
+    let tabs;
     for (let i = 0; i < 15; i++) {
-        let tabs = document.querySelector('smdui-tabs');
+        tabs = document.querySelector('smdui-tabs');
         tabs.addTab("Tabs Number " + i, () => console.log(i));
-        console.log(tabs.tabsArr);
+        // console.log(tabs.tabsArr);
     }
+    // tabs.setSelected(tabs.tabsArr[1]);
 
     let card = document.querySelector('smdui-card');
     // card.setAttribute('heading', 'hello')
     card.setHeading('Solar MD');
-    let info = document.createElement('span');
-    card.addContent(info);
-    info.innerHTML = 'Testing';
-    let info2 = document.createElement('span');
-    info2.innerHTML = 'Testing';
-    info.appendChild(info2);
-    card.addContent(info2);
-    info.innerHTML = "Changed after insert"
-        // card.style.width = "300px"
+    // let nameValue = document.createElement('smdui-name-value');
+    // card.addContent(nameValue);
+
+    // card.style.width = "300px"
+    for (let i = 0; i < 5; i++) {
+        let item = document.createElement('smdui-name-value');
+        item.setName("Number ");
+        item.setValue(i);
+        item.setUnit("kW");
+        card.addContent(item);
+    }
 </script>
 
 </html>

@@ -13,7 +13,6 @@
     width: fit-content;
     min-width: 35px;
     padding: 0.5rem;
-    /* padding-right: 0.5rem; */
     margin: 0.2rem;
     height: 25px;
     display: flex;
@@ -21,14 +20,9 @@
     align-items: center;
     justify-content: center;
     border: 2px solid white;
-    /* border: 2px solid rgb(139, 139, 139); */
-    /* border-top: 2px solid rgb(139, 139, 139); */
-    /* border-bottom: 2px solid rgb(255, 0, 85); */
 }
 
 .tab:hover {
-    /* background-color: rgb(151, 151, 151); */
-    /* box-shadow: 1px 1px rgba(0, 0, 0, 0.5); */
     border-bottom: 2px solid lightgrey;
     transition: all ease-in 0.2s;
     cursor: pointer;
@@ -36,7 +30,7 @@
 
 .selected {
     border-bottom: 2px solid rgb(255, 0, 85);
-    transition: all ease-in 0.4s;
+    /* transition: height ease-in 0.4s; */
 }
 
 .tab-content {
