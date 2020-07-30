@@ -37,8 +37,6 @@ class NameValue extends HTMLElement {
         const valueSpanContainer = document.createElement('div');
         valueSpanContainer.classList.add('right-container');
 
-
-
         this.contentDiv.appendChild(nameSpanContainer);
         this.contentDiv.appendChild(valueSpanContainer);
 

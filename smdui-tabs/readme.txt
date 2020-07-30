@@ -1,6 +1,6 @@
 Methods: 
 
 addTab(name, cb) 
-cb is callback
+setSelected(tab)
 
-tabsArr is accessible.
+tabsArr[] is accessible.

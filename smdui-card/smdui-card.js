@@ -2,35 +2,39 @@ class Card extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this._wrapper;
+        this.wrapper;
         this.headingSpan;
         this.contentDiv;
         this.contentItems = [];
     }
 
     connectedCallback() {
-        if (this.hasAttribute('heading')) {
-            this.heading = this.getAttribute('heading');
-        }
+
 
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-card/smdui-card.css');
 
-        this._wrapper = document.createElement('div');
-        this._wrapper.classList.add('wrapper');
+        this.wrapper = document.createElement('div');
+        this.wrapper.classList.add('wrapper');
 
         this.shadowRoot.appendChild(linkElem);
-        this.shadowRoot.appendChild(this._wrapper);
+        this.shadowRoot.appendChild(this.wrapper);
 
         this.headingSpan = document.createElement('span');
-        this.headingSpan.classList.add('heading');
-        this.headingSpan.innerHTML = this.heading;
-        this._wrapper.appendChild(this.headingSpan);
+        this.wrapper.appendChild(this.headingSpan);
+
+        if (this.hasAttribute('heading')) {
+            this.heading = this.getAttribute('heading');
+            this.headingSpan.classList.add('heading');
+            this.headingSpan.innerHTML = this.heading;
+
+        }
+
 
         this.contentDiv = document.createElement('div');
         this.contentDiv.classList.add('content-div');
-        this._wrapper.appendChild(this.contentDiv);
+        this.wrapper.appendChild(this.contentDiv);
 
         const contentSlot = document.createElement('slot'); //To insert content from DOM, add separately, style before inserting
         contentSlot.classList.add('content-slot');
@@ -40,6 +44,7 @@ class Card extends HTMLElement {
 
     setHeading(heading) {
         this.setAttribute('heading', heading);
+        this.headingSpan.classList.add('heading');
         return this;
     }
 
