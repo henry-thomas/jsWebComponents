@@ -10,7 +10,7 @@
 </head>
 
 <style>
-    .wrapper2 {
+    .wrapper {
         /* max-width: 150px; */
         height: fit-content;
         border: 3px solid grey;
@@ -20,19 +20,29 @@
         height: 500px;
         border-top: 2px solid grey;
         display: flex;
-        ;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    
+    span {
+        padding: 1rem;
     }
 </style>
 
 <body>
 
-    <div class="wrapper2">
+    <div class="wrapper">
         <smdui-tabs></smdui-tabs>
         <div class='content-div'>
             <smdui-card>
+
+                <!-- <span slot="content-slot">Content Slot</span>
+                <span slot="content-slot">Content Slot</span>
+                <span slot="content-slot">Content Slot</span>
+                <span slot="content-slot">Content Slot</span>
+                <span slot="content-slot">Content Slot</span>
+                <span slot="content-slot">Content Slot slot="content-slot" </span> -->
 
             </smdui-card>
         </div>
@@ -44,11 +54,21 @@
     for (let i = 0; i < 15; i++) {
         let tabs = document.querySelector('smdui-tabs');
         tabs.addTab("Tabs Number " + i, () => console.log(i));
+        console.log(tabs.tabsArr);
     }
 
     let card = document.querySelector('smdui-card');
     // card.setAttribute('heading', 'hello')
     card.setHeading('Solar MD');
+    let info = document.createElement('span');
+    card.addContent(info);
+    info.innerHTML = 'Testing';
+    let info2 = document.createElement('span');
+    info2.innerHTML = 'Testing';
+    info.appendChild(info2);
+    card.addContent(info2);
+    info.innerHTML = "Changed after insert"
+        // card.style.width = "300px"
 </script>
 
 </html>
