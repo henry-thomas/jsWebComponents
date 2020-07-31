@@ -9,6 +9,8 @@ class NameValue extends HTMLElement {
         this.nameSpan;
         this.valueSpan;
         this.unitSpan;
+        this.nameTooltip;
+        this.valueTooltip;
     }
 
     connectedCallback() {
@@ -54,7 +56,22 @@ class NameValue extends HTMLElement {
         this.unitSpan.classList.add('unit-span');
         this.contentDiv.appendChild(this.unitSpan);
         this.unitSpan.innerHTML = this.itemUnit;
-
+        console.log((this.parentNode.querySelectorAll('smdui-name-value').length <= 1));
+        console.log(this.parentNode);
+        //tooltip add script
+        try {
+            if ((this.parentNode.querySelectorAll('smdui-name-value').length <= 1)) {
+                if (!document.querySelector('script[src="./smdui-tooltip/smdui-tooltip.js"]')) {
+                    const tooltipElSrc = document.createElement('script');
+                    tooltipElSrc.setAttribute('src', './smdui-tooltip/smdui-tooltip.js');
+                    this.shadowRoot.appendChild(tooltipElSrc);
+                } else { return }
+            };
+        } catch (error) {
+            console.warn(error);
+        }
+        this.nameTooltip = document.createElement('smdui-tooltip');
+        this.valueTooltip = document.createElement('smdui-tooltip');
     }
 
     static get observedAttributes() {
@@ -75,6 +92,24 @@ class NameValue extends HTMLElement {
             this.unitSpan.innerHTML = this.itemUnit;
         }
     }
+
+    setNameTooltip(text) {
+        if (text === '') {
+            this.nameTooltip.setAttribute('text', '')
+        }
+        this.nameTooltip.setAttribute('text', text);
+        this.nameSpan.parentNode.replaceChild(this.nameTooltip, this.nameSpan);
+        this.nameTooltip.appendChild(this.nameSpan);
+    };
+
+    setValueTooltip(text) {
+        if (text === '') {
+            this.valueTooltip.setAttribute('text', '')
+        }
+        this.valueTooltip.setAttribute('text', text);
+        this.valueSpan.parentNode.replaceChild(this.valueTooltip, this.valueSpan);
+        this.valueTooltip.appendChild(this.valueSpan);
+    };
 
     setName(name) {
         this.setAttribute('item-name', name);

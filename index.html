@@ -4,9 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="./smdui-tooltip/smdui-tooltip.js"></script> -->
     <script src="./smdui-tabs/smdui-tabs.js"></script>
     <script src="./smdui-card/smdui-card.js"></script>
     <script src="./smdui-name-value/smdui-name-value.js"></script>
+
 
     <title>SMDUI-Comp-Test</title>
 </head>
@@ -37,9 +39,11 @@
     <div class="wrapper">
         <smdui-tabs></smdui-tabs>
         <div class='content-div'>
+            <!-- <smdui-tooltip text="This is a tooltip"> -->
             <smdui-card>
                 <!-- <smdui-name-value style="width: 200px;" slot="content-slot" item-name="name" item-value="13" item-unit="kW"></smdui-name-value> -->
             </smdui-card>
+            <!-- </smdui-tooltip> -->
         </div>
     </div>
 
@@ -67,6 +71,8 @@
         item.setValue(i);
         item.setUnit("kW");
         card.addContent(item);
+        item.setNameTooltip("Hello sadjf asjf akjsniasjfn o");
+        item.setValueTooltip("Bye");
     }
 </script>
 

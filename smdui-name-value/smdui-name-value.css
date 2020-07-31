@@ -6,6 +6,7 @@
     min-width: 200px;
     margin-bottom: 10px;
     margin-top: 10px;
+    cursor: default;
 }
 
 .left-container {
@@ -25,10 +26,13 @@
 
 .name-span {
     font-weight: lighter;
+    /* cursor: pointer; */
+    pointer-events: none;
 }
 
 .value-span {
     font-weight: bolder;
+    pointer-events: none;
 }
 
 .unit-span {
