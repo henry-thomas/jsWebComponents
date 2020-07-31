@@ -59,11 +59,18 @@ class Card extends HTMLElement {
         return this;
     }
 
-    removeContent(index) {
+    removeContent(index, removeAll) {
         try {
-            for (let i = 0; i < this.contentItems.length; i++) {
-                this.contentItems.splice(0, 1);
+            if (removeAll === true) {
+                for (let i = index; i < this.contentItems.length; i++) {
+                    this.contentDiv.removeChild(this.contentItems[i]);
+                }
+                this.contentItems.splice(0, this.contentItems.length);
+            } else {
+                this.contentDiv.removeChild(this.contentItems[index]);
+                this.contentItems.splice(index, 1);
             }
+
         } catch (error) {
             console.warn(error);
         }
