@@ -8,6 +8,8 @@
     <script src="./smdui-tabs/smdui-tabs.js"></script>
     <script src="./smdui-card/smdui-card.js"></script>
     <script src="./smdui-name-value/smdui-name-value.js"></script>
+    <script src="./smdui-modal/smdui-modal.js"></script>
+
 
 
     <title>SMDUI-Comp-Test</title>
@@ -39,11 +41,14 @@
     <div class="wrapper">
         <smdui-tabs></smdui-tabs>
         <div class='content-div'>
-            <!-- <smdui-tooltip text="This is a tooltip"> -->
+            <button>Open Modal</button>
+            <smdui-modal>
+                <h2 slot='title'>This is a modal</h2>
+                <p slot='content-slot'></p>
+            </smdui-modal>
+
             <smdui-card>
-                <!-- <smdui-name-value style="width: 200px;" slot="content-slot" item-name="name" item-value="13" item-unit="kW"></smdui-name-value> -->
             </smdui-card>
-            <!-- </smdui-tooltip> -->
         </div>
     </div>
 
@@ -75,7 +80,20 @@
         item.setValueTooltip("Bye");
     }
 
-    card.removeContent(1, true);
+    card.removeContent(1, true); // remove all elements from the index to end
+
+    let btn = document.querySelector('button');
+    let modal = document.querySelector('smdui-modal');
+    btn.addEventListener('click', () => {
+        modal.open();
+    })
+    let content = document.createElement('p');
+    content.innerHTML = "This is the modal main content section.";
+    modal.setContent(content);
+    let content2 = document.createElement('p');
+    content2.innerHTML = "This is the modal main content section AGAIN.";
+    modal.setContent(content2); //Replaces the old value
+    modal.setHeading("New modal heading");
 </script>
 
 </html>
