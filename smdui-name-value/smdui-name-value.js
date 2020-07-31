@@ -56,8 +56,6 @@ class NameValue extends HTMLElement {
         this.unitSpan.classList.add('unit-span');
         this.contentDiv.appendChild(this.unitSpan);
         this.unitSpan.innerHTML = this.itemUnit;
-        console.log((this.parentNode.querySelectorAll('smdui-name-value').length <= 1));
-        console.log(this.parentNode);
         //tooltip add script
         try {
             if ((this.parentNode.querySelectorAll('smdui-name-value').length <= 1)) {
@@ -100,7 +98,7 @@ class NameValue extends HTMLElement {
         this.nameTooltip.setAttribute('text', text);
         this.nameSpan.parentNode.replaceChild(this.nameTooltip, this.nameSpan);
         this.nameTooltip.appendChild(this.nameSpan);
-    };
+    }
 
     setValueTooltip(text) {
         if (text === '') {
@@ -109,7 +107,7 @@ class NameValue extends HTMLElement {
         this.valueTooltip.setAttribute('text', text);
         this.valueSpan.parentNode.replaceChild(this.valueTooltip, this.valueSpan);
         this.valueTooltip.appendChild(this.valueSpan);
-    };
+    }
 
     setName(name) {
         this.setAttribute('item-name', name);

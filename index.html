@@ -23,7 +23,7 @@
     }
     
     .content-div {
-        height: 500px;
+        /* height: 500px; */
         border-top: 2px solid grey;
         display: flex;
         flex-direction: column;
@@ -70,17 +70,9 @@
     // card.addContent(nameValue);
 
     // card.style.width = "300px"
-    for (let i = 0; i < 5; i++) {
-        let item = document.createElement('smdui-name-value');
-        item.setName("Number ");
-        item.setValue(i);
-        item.setUnit("kW");
-        card.addContent(item);
-        item.setNameTooltip("Hello sadjf asjf akjsniasjfn o");
-        item.setValueTooltip("Bye");
-    }
 
-    card.removeContent(1, true); // remove all elements from the index to end
+
+    //card.removeContent(1, true); // remove all elements from the index to end
 
     let btn = document.querySelector('button');
     let modal = document.querySelector('smdui-modal');
@@ -94,6 +86,59 @@
     content2.innerHTML = "This is the modal main content section AGAIN.";
     modal.setContent(content2); //Replaces the old value
     modal.setHeading("New modal heading");
+
+
+
+    let dataArr = [{
+        name: 'Software Ver:',
+        value: ''
+    }, {
+        name: 'LoggerV Rev:',
+        value: ''
+    }, {
+        name: 'Hardware:',
+        value: ''
+    }, {
+        name: 'Hardware Serial:',
+        value: ''
+    }, {
+        name: 'Hardware Ver:',
+        value: ''
+    }, {
+        name: 'Hardware Model:',
+        value: 'N/A'
+    }, {
+        name: 'Max CPU Freq:',
+        value: 'N/A'
+    }, {
+        name: 'Min CPU Freq:',
+        value: 'N/A'
+    }, {
+        name: 'Memory Total:',
+        value: 'N/A'
+    }, {
+        name: 'OS Arch:',
+        value: 'N/A'
+    }, {
+        name: 'OS Name:',
+        value: 'N/A'
+    }, {
+        name: 'OS Version:',
+        value: 'N/A'
+    }, {
+        name: 'Java version:',
+        value: 'N/A'
+    }];
+
+    for (let i = 0; i < dataArr.length; i++) {
+        let item = document.createElement('smdui-name-value');
+        item.setName(dataArr[i].name);
+        item.setValue(dataArr[i].value);
+        item.setUnit('unit');
+        card.addContent(item);
+        item.setNameTooltip(dataArr[i].name);
+        item.setValueTooltip(dataArr[i].value);
+    }
 </script>
 
 </html>

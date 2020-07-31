@@ -94,7 +94,7 @@ class Modal extends HTMLElement {
             this.removeAttribute('opened');
         }
         this.isOpen = false;
-    };
+    }
 
     addButton(name, cb) {
         let newButton = document.createElement('button');
