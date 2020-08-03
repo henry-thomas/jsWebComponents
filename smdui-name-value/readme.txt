@@ -1,9 +1,9 @@
 methods:
 setName(name) 
-    
 setValue(value) 
-        
-setUnit(unit) {
+setUnit(unit)
+setNameTooltip(text)
+setValueTooltip(text)
 
 observedAttributes:
 ['item-name', 'item-value', 'item-unit'];

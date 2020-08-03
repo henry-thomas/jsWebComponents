@@ -5,10 +5,10 @@ class NameValue extends HTMLElement {
         this.itemName = '';
         this.itemValue = '';
         this.itemUnit = '';
-        this.contentDiv;
-        this.nameSpan;
-        this.valueSpan;
-        this.unitSpan;
+        this.contentDiv = document.createElement('div');
+        this.nameSpan = document.createElement('span');
+        this.valueSpan = document.createElement('span');
+        this.unitSpan = document.createElement('span');
         this.nameTooltip;
         this.valueTooltip;
     }
@@ -29,7 +29,6 @@ class NameValue extends HTMLElement {
         this.shadowRoot.appendChild(linkElem);
 
 
-        this.contentDiv = document.createElement('div');
         this.contentDiv.classList.add('content-div');
         this.shadowRoot.appendChild(this.contentDiv);
 
@@ -42,17 +41,16 @@ class NameValue extends HTMLElement {
         this.contentDiv.appendChild(nameSpanContainer);
         this.contentDiv.appendChild(valueSpanContainer);
 
-        this.nameSpan = document.createElement('span');
         this.nameSpan.classList.add('name-span');
         nameSpanContainer.appendChild(this.nameSpan);
         this.nameSpan.innerHTML = this.itemName;
 
-        this.valueSpan = document.createElement('span');
+
         this.valueSpan.classList.add('value-span');
         valueSpanContainer.appendChild(this.valueSpan);
         this.valueSpan.innerHTML = this.itemValue;
 
-        this.unitSpan = document.createElement('span');
+
         this.unitSpan.classList.add('unit-span');
         this.contentDiv.appendChild(this.unitSpan);
         this.unitSpan.innerHTML = this.itemUnit;
@@ -92,7 +90,7 @@ class NameValue extends HTMLElement {
     }
 
     setNameTooltip(text) {
-        if (text === '') {
+        if (text === (null || undefined)) {
             this.nameTooltip.setAttribute('text', '')
         }
         this.nameTooltip.setAttribute('text', text);
@@ -101,7 +99,7 @@ class NameValue extends HTMLElement {
     }
 
     setValueTooltip(text) {
-        if (text === '') {
+        if (text === null || undefined) {
             this.valueTooltip.setAttribute('text', '')
         }
         this.valueTooltip.setAttribute('text', text);

@@ -87,54 +87,83 @@
     modal.setContent(content2); //Replaces the old value
     modal.setHeading("New modal heading");
 
-
+    let tab1 = tabs.addTab("")
 
     let dataArr = [{
         name: 'Software Ver:',
-        value: ''
+        value: '',
+        valueClassName: "param-swVer",
+        unit: ""
     }, {
         name: 'LoggerV Rev:',
-        value: ''
+        value: '',
+        valueClassName: "param-hwVer",
+        unit: ""
     }, {
         name: 'Hardware:',
-        value: ''
+        value: '',
+        valueClassName: "param-hardware",
+        unit: ""
     }, {
         name: 'Hardware Serial:',
-        value: ''
+        value: '',
+        valueClassName: "param-hardwareSer",
+        unit: ""
     }, {
         name: 'Hardware Ver:',
-        value: ''
+        value: '',
+        valueClassName: "param-hardwareRev",
+        unit: ""
     }, {
         name: 'Hardware Model:',
-        value: 'N/A'
+        value: 'N/A',
+        valueClassName: "param-hardwareModel",
+        unit: ""
     }, {
         name: 'Max CPU Freq:',
-        value: 'N/A'
+        value: 'N/A',
+        valueClassName: "param-maxCpuFrequency",
+        unit: ""
     }, {
         name: 'Min CPU Freq:',
-        value: 'N/A'
+        value: 'N/A',
+        valueClassName: "param-minCpuFrequency",
+        unit: "MHz"
     }, {
         name: 'Memory Total:',
-        value: 'N/A'
+        value: 'N/A',
+        valueClassName: "param-memTotal",
+        unit: "MB"
     }, {
         name: 'OS Arch:',
-        value: 'N/A'
+        value: 'N/A',
+        valueClassName: "param-osArch",
+        unit: ""
     }, {
         name: 'OS Name:',
-        value: 'N/A'
+        value: 'N/A',
+        valueClassName: "param-osName",
+        unit: ""
     }, {
         name: 'OS Version:',
-        value: 'N/A'
+        value: 'N/A',
+        valueClassName: "param-osVersion",
+        unit: ""
     }, {
         name: 'Java version:',
-        value: 'N/A'
+        value: 'N/A',
+        valueClassName: "param-javaVersion",
+        unit: ""
     }];
 
     for (let i = 0; i < dataArr.length; i++) {
         let item = document.createElement('smdui-name-value');
         item.setName(dataArr[i].name);
         item.setValue(dataArr[i].value);
-        item.setUnit('unit');
+        if (dataArr[i].valueClassName) {
+            item.valueSpan.classList.add(dataArr[i].valueClassName);
+        }
+        item.setUnit(dataArr[i].unit);
         card.addContent(item);
         item.setNameTooltip(dataArr[i].name);
         item.setValueTooltip(dataArr[i].value);
