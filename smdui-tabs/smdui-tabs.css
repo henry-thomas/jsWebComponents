@@ -23,7 +23,7 @@
 }
 
 .tab:hover {
-    border-bottom: 2px solid lightgrey;
+    /* border-bottom: 2px solid lightgrey; */
     transition: all ease-in 0.2s;
     cursor: pointer;
 }

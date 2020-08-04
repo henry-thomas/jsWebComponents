@@ -9,6 +9,8 @@
     <script src="./smdui-card/smdui-card.js"></script>
     <script src="./smdui-name-value/smdui-name-value.js"></script>
     <script src="./smdui-modal/smdui-modal.js"></script>
+    <script src="./smdui-nav-bar/smdui-nav-bar.js"></script>
+
 
 
 
@@ -17,7 +19,7 @@
 
 <style>
     .wrapper {
-        /* max-width: 150px; */
+        width: 100%;
         height: fit-content;
         border: 3px solid grey;
     }
@@ -39,6 +41,7 @@
 <body>
 
     <div class="wrapper">
+        <smdui-nav-bar></smdui-nav-bar>
         <smdui-tabs></smdui-tabs>
         <div class='content-div'>
             <button>Open Modal</button>
@@ -58,7 +61,9 @@
     let tabs;
     for (let i = 0; i < 15; i++) {
         tabs = document.querySelector('smdui-tabs');
-        tabs.addTab("Tabs Number " + i, () => console.log(i));
+        tabs.addTab("Tabs Number " + i, function() {
+            console.log(i)
+        });
         // console.log(tabs.tabsArr);
     }
     // tabs.setSelected(tabs.tabsArr[1]);
@@ -168,6 +173,12 @@
         item.setNameTooltip(dataArr[i].name);
         item.setValueTooltip(dataArr[i].value);
     }
+
+    let navBar = document.querySelector('smdui-nav-bar');
+    navBar.addTab('Test1', () => console.log('nav bar1 clicked'));
+    navBar.addTab('Test2', () => console.log('nav bar2 clicked'));
+    navBar.addTab('Test3', () => console.log('nav bar3 clicked'));
+    navBar.addLink('Logout', () => console.log('Logged Out'));
 </script>
 
 </html>

@@ -1,0 +1,58 @@
+.main-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+    background-color: rgb(240, 240, 240);
+    /* height: 35px; */
+}
+
+.tabs-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-variant: all-petite-caps;
+}
+
+.nav-tab {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    height: 35px;
+    width: 100%;
+    min-width: 75px;
+    border-right: 1px solid grey;
+    border-left: 1px solid grey;
+    border: 2px solid rgb(240, 240, 240);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.selected {
+    border-bottom: 2px solid rgb(255, 0, 85);
+    color: mediumblue;
+}
+
+.link-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    font-size: 0.75rem;
+}
+
+.anchor-tag:hover {
+    color: mediumblue;
+    cursor: pointer;
+}

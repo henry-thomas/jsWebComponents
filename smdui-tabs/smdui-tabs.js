@@ -19,11 +19,6 @@ class Tabs extends HTMLElement {
         //attach to component
         this.shadowRoot.appendChild(linkElem);
         this.shadowRoot.appendChild(this._wrapper);
-
-        // if (this.selectedTab === undefined) {
-        //     this.selectedTab = this.tabsArr[0];
-        //     this.setSelected(this.selectedTab);
-        // }
     }
 
     addTab(name, cb) {
@@ -31,7 +26,7 @@ class Tabs extends HTMLElement {
         const tab = document.createElement('div');
         tab.classList.add('tab');
         tab.addEventListener('click', () => {
-            cb.bind(this);
+            cb();
             this.setSelected(tab);
         });
         this._wrapper.appendChild(tab);
