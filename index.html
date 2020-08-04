@@ -10,6 +10,7 @@
     <script src="./smdui-name-value/smdui-name-value.js"></script>
     <script src="./smdui-modal/smdui-modal.js"></script>
     <script src="./smdui-nav-bar/smdui-nav-bar.js"></script>
+    <script src="./smdui-button/smdui-button.js"></script>
 
 
 
@@ -44,7 +45,7 @@
         <smdui-nav-bar></smdui-nav-bar>
         <smdui-tabs></smdui-tabs>
         <div class='content-div'>
-            <button>Open Modal</button>
+            <smdui-button></smdui-button>
             <smdui-modal>
                 <h2 slot='title'>This is a modal</h2>
                 <p slot='content-slot'></p>
@@ -79,7 +80,8 @@
 
     //card.removeContent(1, true); // remove all elements from the index to end
 
-    let btn = document.querySelector('button');
+    let btn = document.querySelector('smdui-button');
+    btn.setText('open modal');
     let modal = document.querySelector('smdui-modal');
     btn.addEventListener('click', () => {
         modal.open();
@@ -91,6 +93,11 @@
     content2.innerHTML = "This is the modal main content section AGAIN.";
     modal.setContent(content2); //Replaces the old value
     modal.setHeading("New modal heading");
+    modal.addButton("Confirm", () => {
+        console.log("Modal Confirm");
+        modal.hide()
+    });
+
 
     let tab1 = tabs.addTab("")
 

@@ -5,6 +5,12 @@ class Modal extends HTMLElement {
         this.attachShadow({ mode: "open" });
         this.isOpen = false;
         this.heading;
+        this.backdrop = document.createElement('div');
+        this.header = document.createElement('header');
+        this.mainSection = document.createElement('section');
+        this.modal = document.createElement('div');
+        this.actionsSection = document.createElement('section');
+        this.footer = document.createElement('footer');
     }
 
     // const slots = this.shadowRoot.querySelectorAll('slot');
@@ -19,30 +25,23 @@ class Modal extends HTMLElement {
         linkElem.setAttribute('href', 'smdui-modal/smdui-modal.css');
         this.shadowRoot.appendChild(linkElem);
 
-        this.backdrop = document.createElement('div');
         this.backdrop.setAttribute('id', 'backdrop');
 
-        this.modal = document.createElement('div');
         this.modal.setAttribute('id', 'modal');
-
-        this.header = document.createElement('header');
 
         this.headerSlot = document.createElement('slot');
         this.headerSlot.setAttribute('id', 'title-slot');
         this.headerSlot.setAttribute('name', 'title');
 
-        this.mainSection = document.createElement('section');
         this.mainSection.setAttribute('id', 'main');
 
         this.mainSlot = document.createElement('slot');
         this.mainSlot.setAttribute('name', 'content-slot');
 
-        this.footer = document.createElement('footer');
 
         this.footerSlot = document.createElement('slot');
         this.footerSlot.setAttribute('name', 'footer');
 
-        this.actionsSection = document.createElement('section');
         this.actionsSection.setAttribute('id', 'actions');
 
         this.actionsSlot = document.createElement('slot');
@@ -60,6 +59,8 @@ class Modal extends HTMLElement {
         this.footer.appendChild(this.footerSlot);
         this.modal.appendChild(this.actionsSection);
         this.actionsSection.appendChild(this.actionsSlot);
+
+
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -97,8 +98,29 @@ class Modal extends HTMLElement {
     }
 
     addButton(name, cb) {
-        let newButton = document.createElement('button');
-        newButton.innerHTML = name;
+        //*The following checks whether the needed script is included, then includes it at most
+        //*once. The script is appended to the head of the document. 
+        //TODO add a dynamic src attribute to handle dependencies like this.
+        //TODO or find a better solution.
+
+        if ((this.actionsSection.querySelectorAll('smdui-button').length <= 1)) {
+            if (!document.querySelector('script[src="./smdui-button/smdui-button.js"]')) {
+                const buttonSrc = document.createElement('script');
+                buttonSrc.setAttribute('src', './smdui-button/smdui-button.js');
+                if (document.querySelector('head')) {
+                    console.log('smdui-button script appended to head');
+                    document.querySelector('head').appendChild(buttonSrc);
+                } else {
+                    console.log('smdui-button script appended to head');
+                    let head = document.createElement('head');
+                    document.querySelector('html').appendChild(head);
+                    document.querySelector('head').appendChild(buttonSrc);
+                }
+            }
+        };
+
+        let newButton = document.createElement('smdui-button');
+        // newButton.setText(name);
         newButton.addEventListener('click', cb);
         this.actionsSection.appendChild(newButton);
     }
