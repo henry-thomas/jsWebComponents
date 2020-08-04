@@ -120,7 +120,7 @@ class Modal extends HTMLElement {
         };
 
         let newButton = document.createElement('smdui-button');
-        // newButton.setText(name);
+        newButton.setText(name);
         newButton.addEventListener('click', cb);
         this.actionsSection.appendChild(newButton);
     }
