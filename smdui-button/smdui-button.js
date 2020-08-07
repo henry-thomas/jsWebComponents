@@ -22,6 +22,17 @@ class Button extends HTMLElement {
         // }
     }
 
+    setType(type) {
+        switch (type) {
+            case 'confirm':
+                this.classList.add('type-confirm');
+                break;
+            default:
+                return;
+        }
+
+    }
+
     static get observedAttributes() {
         return ['text'];
     }

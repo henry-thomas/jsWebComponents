@@ -12,3 +12,7 @@ button {
     margin: 5px;
     font-size: 1rem;
 }
+
+.confirm {
+    border-color: greenyellow;
+}
