@@ -47,15 +47,31 @@ class NavBar extends HTMLElement {
     }
 
     addLink(name, cb) {
-        const linkSection = document.createElement('div');
-        linkSection.classList.add('link-section');
-        this.mainSection.appendChild(linkSection);
-        const link = document.createElement('a');
-        link.innerHTML = name;
-        link.addEventListener('click', cb);
-        link.classList.add('anchor-tag');
-        linkSection.appendChild(link);
+        if (!document.querySelector('.link-section')) {
+            const linkSection = document.createElement('div');
+            linkSection.classList.add('link-section');
+            this.mainSection.appendChild(linkSection);
+            const link = document.createElement('a');
+            link.innerHTML = name;
+            link.addEventListener('click', cb);
+            link.classList.add('anchor-tag');
+            linkSection.appendChild(link);
+        }
     }
+
+    setLinkInfo(text) {
+        const linkInfo = document.createElement('span');
+        linkInfo.classList.add('link-info');
+        linkInfo.innerHTML = text;
+        if (this.shadowRoot.querySelector('.link-section')) {
+            this.shadowRoot.querySelector('.link-section').appendChild(linkInfo);
+        } else {
+            const linkSection = document.createElement('div');
+            linkSection.classList.add('link-section');
+            this.mainSection.appendChild(linkSection);
+            linkSection.appendChild(linkInfo);
+        }
+    };
 }
 
 customElements.define('smdui-nav-bar', NavBar);
