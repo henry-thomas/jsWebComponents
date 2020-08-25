@@ -5,6 +5,8 @@ class NavBar extends HTMLElement {
         this.tabsArr = [];
         this.selectedTab;
         this.mainSection = document.createElement('div');
+        this.tabsSection = document.createElement('div');
+        this.init();
     }
 
     connectedCallback() {
@@ -12,11 +14,12 @@ class NavBar extends HTMLElement {
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-nav-bar/smdui-nav-bar.css');
         this.shadowRoot.appendChild(linkElem);
+    }
 
+    init() {
         this.mainSection.classList.add('main-section');
         this.shadowRoot.appendChild(this.mainSection);
 
-        this.tabsSection = document.createElement('div');
         this.tabsSection.classList.add('tabs-section');
         this.mainSection.appendChild(this.tabsSection);
     }

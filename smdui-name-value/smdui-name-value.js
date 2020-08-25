@@ -11,9 +11,10 @@ class NameValue extends HTMLElement {
         this.unitSpan = document.createElement('span');
         this.nameTooltip;
         this.valueTooltip;
+        this.init();
     }
 
-    connectedCallback() {
+    init() {
         if (this.hasAttribute('item-name')) {
             this.itemName = this.getAttribute('item-name');
         }
@@ -27,7 +28,6 @@ class NameValue extends HTMLElement {
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-name-value/smdui-name-value.css');
         this.shadowRoot.appendChild(linkElem);
-
 
         this.contentDiv.classList.add('content-div');
         this.shadowRoot.appendChild(this.contentDiv);
@@ -54,6 +54,9 @@ class NameValue extends HTMLElement {
         this.unitSpan.classList.add('unit-span');
         this.contentDiv.appendChild(this.unitSpan);
         this.unitSpan.innerHTML = this.itemUnit;
+    }
+
+    connectedCallback() {
         //tooltip add script
         try {
             if ((this.parentNode.querySelectorAll('smdui-name-value').length <= 1)) {
@@ -68,6 +71,7 @@ class NameValue extends HTMLElement {
         }
         this.nameTooltip = document.createElement('smdui-tooltip');
         this.valueTooltip = document.createElement('smdui-tooltip');
+
     }
 
     static get observedAttributes() {

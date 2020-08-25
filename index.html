@@ -5,12 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <script src="./smdui-tooltip/smdui-tooltip.js"></script> -->
+
     <script src="./smdui-tabs/smdui-tabs.js"></script>
     <script src="./smdui-card/smdui-card.js"></script>
     <script src="./smdui-name-value/smdui-name-value.js"></script>
     <script src="./smdui-modal/smdui-modal.js"></script>
     <script src="./smdui-nav-bar/smdui-nav-bar.js"></script>
     <script src="./smdui-button/smdui-button.js"></script>
+    <script defer src="./demo.js"></script>
 
 
 
@@ -41,7 +43,7 @@
 
 <body>
 
-    <div class="wrapper">
+    <!-- <div class="wrapper">
         <smdui-nav-bar></smdui-nav-bar>
         <smdui-tabs></smdui-tabs>
         <div class='content-div'>
@@ -54,139 +56,139 @@
             <smdui-card>
             </smdui-card>
         </div>
-    </div>
+    </div> -->
 
 </body>
 
 <script>
-    let tabs;
-    for (let i = 0; i < 15; i++) {
-        tabs = document.querySelector('smdui-tabs');
-        tabs.addTab("Tabs Number " + i, function() {
-            console.log(i)
-        });
-        // console.log(tabs.tabsArr);
-    }
-    // tabs.setSelected(tabs.tabsArr[1]);
+    // let tabs;
+    // for (let i = 0; i < 15; i++) {
+    //     tabs = document.querySelector('smdui-tabs');
+    //     tabs.addTab("Tabs Number " + i, function() {
+    //         console.log(i)
+    //     });
+    //     // console.log(tabs.tabsArr);
+    // }
+    // // tabs.setSelected(tabs.tabsArr[1]);
 
-    let card = document.querySelector('smdui-card');
-    // card.setAttribute('heading', 'hello')
-    card.setHeading('Solar MD');
-    // let nameValue = document.createElement('smdui-name-value');
-    // card.addContent(nameValue);
+    // let card = document.querySelector('smdui-card');
+    // // card.setAttribute('heading', 'hello')
+    // card.setHeading('Solar MD');
+    // // let nameValue = document.createElement('smdui-name-value');
+    // // card.addContent(nameValue);
 
-    // card.style.width = "300px"
-
-
-    //card.removeContent(1, true); // remove all elements from the index to end
-
-    let btn = document.querySelector('smdui-button');
-    btn.setText('open modal');
-    let modal = document.querySelector('smdui-modal');
-    btn.addEventListener('click', () => {
-        modal.open();
-    })
-    let content = document.createElement('p');
-    content.innerHTML = "This is the modal main content section.";
-    modal.setContent(content);
-    let content2 = document.createElement('p');
-    content2.innerHTML = "This is the modal main content section AGAIN.";
-    modal.setContent(content2); //Replaces the old value
-    modal.setHeading("New modal heading");
-    modal.addButton("Confirm", () => {
-        console.log("Modal Confirm");
-        modal.hide()
-    });
+    // // card.style.width = "300px"
 
 
-    let tab1 = tabs.addTab("")
+    // //card.removeContent(1, true); // remove all elements from the index to end
 
-    let dataArr = [{
-        name: 'Software Ver:',
-        value: '',
-        valueClassName: "param-swVer",
-        unit: ""
-    }, {
-        name: 'LoggerV Rev:',
-        value: '',
-        valueClassName: "param-hwVer",
-        unit: ""
-    }, {
-        name: 'Hardware:',
-        value: '',
-        valueClassName: "param-hardware",
-        unit: ""
-    }, {
-        name: 'Hardware Serial:',
-        value: '',
-        valueClassName: "param-hardwareSer",
-        unit: ""
-    }, {
-        name: 'Hardware Ver:',
-        value: '',
-        valueClassName: "param-hardwareRev",
-        unit: ""
-    }, {
-        name: 'Hardware Model:',
-        value: 'N/A',
-        valueClassName: "param-hardwareModel",
-        unit: ""
-    }, {
-        name: 'Max CPU Freq:',
-        value: 'N/A',
-        valueClassName: "param-maxCpuFrequency",
-        unit: ""
-    }, {
-        name: 'Min CPU Freq:',
-        value: 'N/A',
-        valueClassName: "param-minCpuFrequency",
-        unit: "MHz"
-    }, {
-        name: 'Memory Total:',
-        value: 'N/A',
-        valueClassName: "param-memTotal",
-        unit: "MB"
-    }, {
-        name: 'OS Arch:',
-        value: 'N/A',
-        valueClassName: "param-osArch",
-        unit: ""
-    }, {
-        name: 'OS Name:',
-        value: 'N/A',
-        valueClassName: "param-osName",
-        unit: ""
-    }, {
-        name: 'OS Version:',
-        value: 'N/A',
-        valueClassName: "param-osVersion",
-        unit: ""
-    }, {
-        name: 'Java version:',
-        value: 'N/A',
-        valueClassName: "param-javaVersion",
-        unit: ""
-    }];
+    // let btn = document.querySelector('smdui-button');
+    // btn.setText('open modal');
+    // let modal = document.querySelector('smdui-modal');
+    // btn.addEventListener('click', () => {
+    //     modal.open();
+    // })
+    // let content = document.createElement('p');
+    // content.innerHTML = "This is the modal main content section.";
+    // modal.setContent(content);
+    // let content2 = document.createElement('p');
+    // content2.innerHTML = "This is the modal main content section AGAIN.";
+    // modal.setContent(content2); //Replaces the old value
+    // modal.setHeading("New modal heading");
+    // modal.addButton("Confirm", () => {
+    //     console.log("Modal Confirm");
+    //     modal.hide()
+    // });
 
-    for (let i = 0; i < dataArr.length; i++) {
-        let item = document.createElement('smdui-name-value');
-        item.setName(dataArr[i].name);
-        item.setValue(dataArr[i].value);
-        if (dataArr[i].valueClassName) {
-            item.valueSpan.classList.add(dataArr[i].valueClassName);
-        }
-        item.setUnit(dataArr[i].unit);
-        card.addContent(item);
-        item.setNameTooltip(dataArr[i].name);
-        item.setValueTooltip(dataArr[i].value);
-    }
 
-    let navBar = document.querySelector('smdui-nav-bar');
-    navBar.addTab('Test1', () => console.log('nav bar1 clicked'));
-    navBar.addTab('Test2', () => console.log('nav bar2 clicked'));
-    navBar.addTab('Test3', () => console.log('nav bar3 clicked'));
-    navBar.addLink('Logout', () => console.log('Logged Out'));
-    navBar.setLinkInfo('Logged in as Henry')
+    // let tab1 = tabs.addTab("")
+
+    // let dataArr = [{
+    //     name: 'Software Ver:',
+    //     value: '',
+    //     valueClassName: "param-swVer",
+    //     unit: ""
+    // }, {
+    //     name: 'LoggerV Rev:',
+    //     value: '',
+    //     valueClassName: "param-hwVer",
+    //     unit: ""
+    // }, {
+    //     name: 'Hardware:',
+    //     value: '',
+    //     valueClassName: "param-hardware",
+    //     unit: ""
+    // }, {
+    //     name: 'Hardware Serial:',
+    //     value: '',
+    //     valueClassName: "param-hardwareSer",
+    //     unit: ""
+    // }, {
+    //     name: 'Hardware Ver:',
+    //     value: '',
+    //     valueClassName: "param-hardwareRev",
+    //     unit: ""
+    // }, {
+    //     name: 'Hardware Model:',
+    //     value: 'N/A',
+    //     valueClassName: "param-hardwareModel",
+    //     unit: ""
+    // }, {
+    //     name: 'Max CPU Freq:',
+    //     value: 'N/A',
+    //     valueClassName: "param-maxCpuFrequency",
+    //     unit: ""
+    // }, {
+    //     name: 'Min CPU Freq:',
+    //     value: 'N/A',
+    //     valueClassName: "param-minCpuFrequency",
+    //     unit: "MHz"
+    // }, {
+    //     name: 'Memory Total:',
+    //     value: 'N/A',
+    //     valueClassName: "param-memTotal",
+    //     unit: "MB"
+    // }, {
+    //     name: 'OS Arch:',
+    //     value: 'N/A',
+    //     valueClassName: "param-osArch",
+    //     unit: ""
+    // }, {
+    //     name: 'OS Name:',
+    //     value: 'N/A',
+    //     valueClassName: "param-osName",
+    //     unit: ""
+    // }, {
+    //     name: 'OS Version:',
+    //     value: 'N/A',
+    //     valueClassName: "param-osVersion",
+    //     unit: ""
+    // }, {
+    //     name: 'Java version:',
+    //     value: 'N/A',
+    //     valueClassName: "param-javaVersion",
+    //     unit: ""
+    // }];
+
+    // for (let i = 0; i < dataArr.length; i++) {
+    //     let item = document.createElement('smdui-name-value');
+    //     item.setName(dataArr[i].name);
+    //     item.setValue(dataArr[i].value);
+    //     if (dataArr[i].valueClassName) {
+    //         item.valueSpan.classList.add(dataArr[i].valueClassName);
+    //     }
+    //     item.setUnit(dataArr[i].unit);
+    //     card.addContent(item);
+    //     item.setNameTooltip(dataArr[i].name);
+    //     item.setValueTooltip(dataArr[i].value);
+    // }
+
+    // let navBar = document.querySelector('smdui-nav-bar');
+    // navBar.addTab('Test1', () => console.log('nav bar1 clicked'));
+    // navBar.addTab('Test2', () => console.log('nav bar2 clicked'));
+    // navBar.addTab('Test3', () => console.log('nav bar3 clicked'));
+    // navBar.addLink('Logout', () => console.log('Logged Out'));
+    // navBar.setLinkInfo('Logged in as Henry')
 </script>
 
 </html>
