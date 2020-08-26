@@ -1,3 +1,9 @@
+//This demo shows how to use the components, basic use cases.
+//Each element's script should be added to the head document separately,
+//and the defer attribute should be added for optimal loading. Especially
+//if the components have to be created on page load like here (demo.init()). Otherwise 
+//the elements try to append to elements that have not yet been initialised.
+
 (function(root) {
 
     const demo = {
@@ -9,6 +15,7 @@
 
         render: function() {
             this.createNavBar();
+            this.createTabs();
             this.createCard();
             this.createButton();
             this.createModal();
@@ -54,7 +61,7 @@
             this.body.appendChild(btn);
         },
 
-        createModal() {
+        createModal: function() {
             let modal = document.createElement('smdui-modal');
             this.body.appendChild(modal);
             modal.setHeading('SMDUI-Modal');
@@ -66,6 +73,19 @@
                 modal.hide();
             });
             this.modal = modal;
+        },
+
+        createTabs: function() {
+            let tabs;
+            tabs = document.createElement('smdui-tabs');
+            for (let i = 0; i < 15; i++) {
+                tabs.addTab("Tabs Number " + i, function() {
+                    console.log(i)
+                });
+                // console.log(tabs.tabsArr);
+            }
+            // tabs.setSelected(tabs.tabsArr[1]);
+            this.body.appendChild(tabs);
         },
 
         dataArr: [{

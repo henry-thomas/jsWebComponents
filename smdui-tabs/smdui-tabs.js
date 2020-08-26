@@ -5,6 +5,15 @@ class Tabs extends HTMLElement {
         this.selectedTab;
         this.tabsArr = [];
         this.attachShadow({ mode: 'open' });
+        this.init();
+    }
+
+    init() {
+        this._wrapper = document.createElement('div');
+        this._wrapper.classList.add('wrapper');
+
+        //attach to component
+        this.shadowRoot.appendChild(this._wrapper);
     }
 
     connectedCallback() {
@@ -12,13 +21,9 @@ class Tabs extends HTMLElement {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-tabs/smdui-tabs.css');
-
-        this._wrapper = document.createElement('div');
-        this._wrapper.classList.add('wrapper');
-
-        //attach to component
         this.shadowRoot.appendChild(linkElem);
-        this.shadowRoot.appendChild(this._wrapper);
+
+
     }
 
     addTab(name, cb) {
