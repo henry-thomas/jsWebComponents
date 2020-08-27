@@ -23,9 +23,33 @@ class Button extends HTMLElement {
     }
 
     setType(type) {
+        if (this.button.classList.length > 0) {
+            for (let i = 0; i <= this.classList.length; i++) {
+                console.log(this.button.classList)
+                this.button.classList.remove(this.button.classList[i]);
+            }
+        }
+
         switch (type) {
             case 'confirm':
-                this.classList.add('type-confirm');
+                this.button.classList.add('confirm--button');
+                console.log(this.button.classList)
+
+                break;
+            case 'cancel':
+                this.button.classList.add('cancel--button');
+                break;
+            case 'danger':
+                this.button.classList.add('danger--button');
+                break;
+            case 'warning':
+                this.button.classList.add('warning--button');
+                break;
+            case 'primary':
+                this.button.classList.add('primary--button');
+                break;
+            case 'secondary':
+                this.button.classList.add('secondary--button');
                 break;
             default:
                 return;

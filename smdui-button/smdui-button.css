@@ -1,18 +1,68 @@
 button {
-    border-color: darkgray;
-    border-radius: 5px;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+    border: 2px solid darkgray;
+    color: rgb(49, 49, 49);
+    /* border-color: darkgray; */
+    border-radius: 12px;
     background-color: rgb(240, 240, 240);
     height: fit-content;
     width: fit-content;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     min-width: 120px;
     margin: 5px;
     font-size: 1rem;
+    font-weight: 600;
 }
 
-.confirm {
-    border-color: greenyellow;
+button:hover {
+    border: 2px solid rgb(121, 121, 121);
+    cursor: pointer;
+}
+
+button:active {
+    border: 2px solid lightgray;
+    outline: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+.confirm--button {
+    background: rgb(0, 140, 255);
+    border-color: rgb(0, 56, 102);
+    color: whitesmoke;
+}
+
+.cancel--button {
+    border-color: rgb(0, 140, 255);
+    background: rgb(240, 240, 240);
+    color: rgb(49, 49, 49);
+}
+
+.warning--button {
+    border-color: rgb(128, 115, 2);
+    background: rgb(255, 230, 0);
+    color: rgb(49, 49, 49);
+}
+
+.danger--button {
+    border-color: rgb(97, 0, 0);
+    background: rgb(255, 0, 0);
+    color: whitesmoke;
+}
+
+.secondary--button {
+    border-color: black;
+    background: rgb(49, 49, 49);
+    color: whitesmoke;
+}
+
+.primary--button {
+    border-color: black;
+    background: rgb(240, 240, 240);
+    color: rgb(49, 49, 49);
 }
