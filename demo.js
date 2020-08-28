@@ -18,7 +18,7 @@
             this.createTabs();
             this.createCard();
             this.createButton();
-            this.createModal();
+            // this.createModal();
         },
 
         createNavBar: function() {
@@ -54,7 +54,7 @@
 
         createButton: function() {
             let btn = document.createElement('smdui-button');
-            btn.setText('open modal');
+            btn.setText('Open Modal');
             btn.addEventListener('click', () => {
                 this.modal.open();
             })
@@ -71,7 +71,7 @@
             modal.addButton('Okay', () => {
                 console.log('Modal Button Clicked');
                 modal.hide();
-            });
+            }).setType('secondary');;
             this.modal = modal;
         },
 

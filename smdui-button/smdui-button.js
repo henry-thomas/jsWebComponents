@@ -4,22 +4,24 @@ class Button extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.text = "Button";
         this.button = document.createElement('button');
+        this.init();
     }
 
-    connectedCallback() {
+    init() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-button/smdui-button.css');
         this.shadowRoot.appendChild(linkElem);
+    }
 
+    connectedCallback() {
         this.setText(this.text);
         this.shadowRoot.appendChild(this.button);
     }
 
     setText(text) {
-        // if (this.hasAttribute('text')) {
         this.setAttribute('text', text);
-        // }
+        return this;
     }
 
     setType(type) {
@@ -31,14 +33,6 @@ class Button extends HTMLElement {
         }
 
         switch (type) {
-            case 'confirm':
-                this.button.classList.add('confirm--button');
-                console.log(this.button.classList)
-
-                break;
-            case 'cancel':
-                this.button.classList.add('cancel--button');
-                break;
             case 'danger':
                 this.button.classList.add('danger--button');
                 break;
@@ -54,17 +48,24 @@ class Button extends HTMLElement {
             default:
                 return;
         }
-
+        return this;
     }
 
     static get observedAttributes() {
-        return ['text'];
+        return ['text', 'disabled'];
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
         if (name === 'text') {
             this.text = newVal;
             this.button.innerHTML = this.text;
+        }
+        if (name === 'disabled') {
+            if (newVal === 'true') {
+                this.button.setAttribute('disabled', newVal);
+            } else {
+                this.button.removeAttribute('disabled');
+            }
         }
     }
 }

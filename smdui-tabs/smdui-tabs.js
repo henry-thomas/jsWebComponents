@@ -12,18 +12,16 @@ class Tabs extends HTMLElement {
         this._wrapper = document.createElement('div');
         this._wrapper.classList.add('wrapper');
 
-        //attach to component
-        this.shadowRoot.appendChild(this._wrapper);
-    }
-
-    connectedCallback() {
-        //define elements
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-tabs/smdui-tabs.css');
         this.shadowRoot.appendChild(linkElem);
 
+        //attach to component
+    }
 
+    connectedCallback() {
+        this.shadowRoot.appendChild(this._wrapper);
     }
 
     addTab(name, cb) {

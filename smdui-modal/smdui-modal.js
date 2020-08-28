@@ -11,6 +11,7 @@ class Modal extends HTMLElement {
         this.modal = document.createElement('div');
         this.actionsSection = document.createElement('section');
         this.footer = document.createElement('footer');
+        this.init();
     }
 
     // const slots = this.shadowRoot.querySelectorAll('slot');
@@ -18,13 +19,12 @@ class Modal extends HTMLElement {
     //     // console.dir(slots[1].assignedNodes());
     // });
 
+    init() {
 
-    connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-modal/smdui-modal.css');
         this.shadowRoot.appendChild(linkElem);
-
         this.backdrop.setAttribute('id', 'backdrop');
 
         this.modal.setAttribute('id', 'modal');
@@ -47,8 +47,11 @@ class Modal extends HTMLElement {
         this.actionsSlot = document.createElement('slot');
         this.actionsSlot.setAttribute('name', 'actions');
 
-        this.backdrop.addEventListener('click', this._cancel.bind(this))
+    }
 
+
+    connectedCallback() {
+        this.backdrop.addEventListener('click', this._cancel.bind(this))
         this.shadowRoot.appendChild(this.backdrop);
         this.shadowRoot.appendChild(this.modal);
         this.modal.appendChild(this.header);
@@ -59,8 +62,6 @@ class Modal extends HTMLElement {
         this.footer.appendChild(this.footerSlot);
         this.modal.appendChild(this.actionsSection);
         this.actionsSection.appendChild(this.actionsSlot);
-
-
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -123,6 +124,7 @@ class Modal extends HTMLElement {
         newButton.setText(name);
         newButton.addEventListener('click', cb);
         this.actionsSection.appendChild(newButton);
+        return newButton;
     }
 
     setHeading(heading) {

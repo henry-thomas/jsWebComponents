@@ -13,8 +13,8 @@ class Card extends HTMLElement {
 
         this.wrapper = document.createElement('div');
         this.wrapper.classList.add('wrapper');
-
         this.shadowRoot.appendChild(this.wrapper);
+
 
         this.headingSpan = document.createElement('span');
         this.wrapper.appendChild(this.headingSpan);

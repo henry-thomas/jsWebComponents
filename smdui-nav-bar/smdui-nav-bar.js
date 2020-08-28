@@ -10,15 +10,15 @@ class NavBar extends HTMLElement {
     }
 
     connectedCallback() {
+        this.shadowRoot.appendChild(this.mainSection);
+    }
+
+    init() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-nav-bar/smdui-nav-bar.css');
         this.shadowRoot.appendChild(linkElem);
-    }
-
-    init() {
         this.mainSection.classList.add('main-section');
-        this.shadowRoot.appendChild(this.mainSection);
 
         this.tabsSection.classList.add('tabs-section');
         this.mainSection.appendChild(this.tabsSection);
