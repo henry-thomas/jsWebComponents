@@ -18,16 +18,13 @@ class Card extends HTMLElement {
 
         this.headingSpan = document.createElement('span');
         this.wrapper.appendChild(this.headingSpan);
+
     }
-
     connectedCallback() {
-
-
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-card/smdui-card.css');
         this.shadowRoot.appendChild(linkElem);
-
 
         if (this.hasAttribute('heading')) {
             this.heading = this.getAttribute('heading');

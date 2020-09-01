@@ -8,7 +8,8 @@
 
     const demo = {
         init: function() {
-            this.body = document.querySelector('body');
+            this.body = document.querySelector('.wrapper');
+            this.contentDiv = document.querySelector('.content-div');
 
             this.render();
         },
@@ -18,7 +19,8 @@
             this.createTabs();
             this.createCard();
             this.createButton();
-            // this.createModal();
+            this.createModal();
+            this.createDataPanel()
         },
 
         createNavBar: function() {
@@ -29,13 +31,13 @@
             navBar.addTab('Test3', () => console.log('nav bar3 clicked'));
             navBar.addLink('Logout', () => console.log('Logged Out'));
             navBar.setLinkInfo('Logged in as Henry');
-            this.body.appendChild(navBar);
+            this.body.prepend(navBar);
         },
 
         createCard: function() {
             let card = document.createElement('smdui-card');
             card.setHeading("SMDUI-Card");
-            this.body.appendChild(card);
+            this.contentDiv.appendChild(card);
 
             for (let i = 0; i < this.dataArr.length; i++) {
                 let item = document.createElement('smdui-name-value');
@@ -58,7 +60,7 @@
             btn.addEventListener('click', () => {
                 this.modal.open();
             })
-            this.body.appendChild(btn);
+            this.contentDiv.appendChild(btn);
         },
 
         createModal: function() {
@@ -66,13 +68,31 @@
             this.body.appendChild(modal);
             modal.setHeading('SMDUI-Modal');
             let modalContent = document.createElement('span');
-            modalContent.innerHTML = 'This is the content section of the modal.'
+            modalContent.innerHTML = "This is the content section of the modal."
             modal.setContent(modalContent);
             modal.addButton('Okay', () => {
                 console.log('Modal Button Clicked');
                 modal.hide();
             }).setType('secondary');;
             this.modal = modal;
+        },
+
+        createDataPanel: function() {
+            let dataPanel = document.createElement('smdui-data-panel');
+            this.contentDiv.appendChild(dataPanel);
+            for (let i = 0; i < 4; i++) {
+                let contentWrapper = document.createElement('div');
+                let headingSpan = document.createElement('span');
+                headingSpan.innerHTML = 'PANITEM' + i;
+                contentWrapper.appendChild(headingSpan);
+
+                dataPanel.addItem(contentWrapper);
+            }
+
+
+            let orientSet = document.createElement('span');
+            orientSet.textContent = 'Orient';
+            dataPanel.addSetting(orientSet, function() { dataPanel.toggleOrientation() });
         },
 
         createTabs: function() {
@@ -85,7 +105,7 @@
                 // console.log(tabs.tabsArr);
             }
             // tabs.setSelected(tabs.tabsArr[1]);
-            this.body.appendChild(tabs);
+            this.body.prepend(tabs);
         },
 
         dataArr: [{
