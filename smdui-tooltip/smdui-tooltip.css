@@ -1,25 +1,25 @@
 div {
     width: max-content;
-    max-width: 100px;
+    max-width: 120px;
     font-weight: lighter;
     background-color: #fff;
     color: black;
     position: absolute;
-    top: 0.25rem;
+    /* top: 0.25rem; */
     z-index: -1;
     padding: 0.15rem;
     border-radius: 3px;
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.26);
     opacity: 0;
-    transform: translateY(-2rem);
-    transition: all 200ms ease-in;
+    transform: translateY(-1rem);
+    transition: all 150ms ease-in;
     pointer-events: none;
 }
 
 .open {
     z-index: 10;
     opacity: 0.8;
-    transform: translateY(-110%);
+    transform: translateY(-100%);
 }
 
 :host {

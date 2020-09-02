@@ -2,12 +2,15 @@ class Button extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.text = "Button";
-        this.button = document.createElement('button');
+
         this.init();
     }
 
     init() {
+        this.text = "Button";
+        this.button = document.createElement('button');
+        this.type = '';
+
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-button/smdui-button.css');
@@ -24,7 +27,7 @@ class Button extends HTMLElement {
         return this;
     }
 
-    setType(type) {
+    set type(type) {
         if (this.button.classList.length > 0) {
             for (let i = 0; i <= this.classList.length; i++) {
                 console.log(this.button.classList)
@@ -52,7 +55,7 @@ class Button extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['text', 'disabled'];
+        return ['text', 'disabled', 'type'];
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
@@ -66,6 +69,9 @@ class Button extends HTMLElement {
             } else {
                 this.button.removeAttribute('disabled');
             }
+        }
+        if (name === 'type') {
+            this.type = this.getAttribute('type', newVal);
         }
     }
 }

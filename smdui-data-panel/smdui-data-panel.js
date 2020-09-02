@@ -13,7 +13,6 @@ class DataPanel extends HTMLElement {
         this.contentPanel = document.createElement('div');
         this.contentPanel.classList.add('contentPanel');
         this.panelArr = [];
-        this.selectedPanel = '';
         this.orientation = '';
 
         const linkElem = document.createElement('link'); //link for external stylesheet
@@ -97,7 +96,6 @@ class DataPanel extends HTMLElement {
             this.orientation = 'vertical';
         }
     }
-
 
     static get observedAttributes() {
         return ['orientation'];

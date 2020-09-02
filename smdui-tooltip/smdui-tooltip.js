@@ -4,10 +4,6 @@ class Tooltip extends HTMLElement {
         this._tooltipTarget;
         this._tooltipVisible = false;
         this.attachShadow({ mode: 'open' });
-
-        this.shadowRoot.innerHTML = `
-        <slot>Tooltip Default Slot</slot>
-        `
         this.init();
     }
 
@@ -16,17 +12,30 @@ class Tooltip extends HTMLElement {
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-tooltip/smdui-tooltip.css');
         this.shadowRoot.appendChild(linkElem);
+
+        this._tooltipTarget = document.createElement('slot');
+        this.shadowRoot.appendChild(this._tooltipTarget);
+    }
+
+    set text(text) {
+        if (text) {
+            console.log(text);
+            this.setAttribute('text', text);
+        } else if (this.hasAttribute('text')) {
+            this._tooltipText = this.getAttribute('text') || '';
+        } else {
+            this._tooltipText = '';
+        }
+    }
+
+    get text() {
+        return this.getAttribute('text');
     }
 
     connectedCallback() {
-        if (this.hasAttribute('text')) {
-            this._tooltipText = this.getAttribute('text') || "";
-        }
-        this._tooltipTarget = this.shadowRoot.querySelector('slot');
         this._tooltipTarget.addEventListener('mouseenter', this._showTooltip.bind(this));
         this._tooltipTarget.addEventListener('mouseleave', this._hideTooltip.bind(this));
         this.tooltipContainer = document.createElement('div');
-        this.tooltipContainer.textContent = this._tooltipText || "";
         this.shadowRoot.appendChild(this.tooltipContainer);
 
         this._render();
@@ -50,13 +59,13 @@ class Tooltip extends HTMLElement {
     }
 
     _render() {
-        let tooltipContainer = this.shadowRoot.querySelector('div');
+        this.tooltipContainer.textContent = this._tooltipText || "";
         if (this._tooltipVisible) {
             this.tooltipContainer.classList.add('open');
 
         } else {
-            if (tooltipContainer)
-                tooltipContainer.classList.remove('open');
+            if (this.tooltipContainer)
+                this.tooltipContainer.classList.remove('open');
         }
     }
 

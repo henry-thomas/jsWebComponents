@@ -53,7 +53,6 @@ class Tabs extends HTMLElement {
             this.tabsArr[i].classList.remove('selected');
         }
         selectedTab.classList.add('selected');
-
     }
 }
 

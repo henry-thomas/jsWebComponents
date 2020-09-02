@@ -1,8 +1,8 @@
-//This demo shows how to use the components, basic use cases.
-//Each element's script should be added to the head document separately,
-//and the defer attribute should be added for optimal loading. Especially
-//if the components have to be created on page load like here (demo.init()). Otherwise 
-//the elements try to append to elements that have not yet been initialised.
+//*This demo shows how to use the components, basic use cases.
+//*Each element's script should be added to the head document separately,
+//*and the defer attribute should be added for optimal loading. Especially
+//*if the components have to be created on page load like here (demo.init()). Otherwise 
+//*the elements try to append to elements that have not yet been initialised.
 
 (function(root) {
 
@@ -36,18 +36,18 @@
 
         createCard: function() {
             let card = document.createElement('smdui-card');
-            card.setHeading("SMDUI-Card");
+            card.heading = "SMDUI-Card";
             this.contentDiv.appendChild(card);
 
             for (let i = 0; i < this.dataArr.length; i++) {
                 let item = document.createElement('smdui-name-value');
-                item.setName(this.dataArr[i].name);
-                item.setValue(this.dataArr[i].value);
+                item.name = (this.dataArr[i].name);
+                item.value = (this.dataArr[i].value);
                 if (this.dataArr[i].valueClassName) {
                     item.valueSpan.classList.add(this.dataArr[i].valueClassName);
                 }
 
-                item.setUnit(this.dataArr[i].unit);
+                item.unit = (this.dataArr[i].unit);
                 card.addContent(item);
                 item.setNameTooltip(this.dataArr[i].name);
                 item.setValueTooltip(this.dataArr[i].value);
@@ -66,15 +66,15 @@
         createModal: function() {
             let modal = document.createElement('smdui-modal');
             this.body.appendChild(modal);
-            modal.setHeading('SMDUI-Modal');
             let modalContent = document.createElement('span');
             modalContent.innerHTML = "This is the content section of the modal."
             modal.setContent(modalContent);
             modal.addButton('Okay', () => {
                 console.log('Modal Button Clicked');
                 modal.hide();
-            }).setType('secondary');;
+            }).type = 'secondary';
             this.modal = modal;
+            modal.heading = 'SMDUI-Modal';
         },
 
         createDataPanel: function() {

@@ -4,6 +4,7 @@ class Card extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.wrapper;
         this.headingSpan;
+        this.heading;
         this.contentDiv;
         this.contentItems = [];
         this.init();
@@ -20,19 +21,22 @@ class Card extends HTMLElement {
         this.wrapper.appendChild(this.headingSpan);
 
     }
+
+    set heading(heading) {
+        if (!this.hasAttribute('heading')) {
+            this.setAttribute('heading', heading);
+            this.headingSpan.classList.add('heading');
+        }
+        this.headingSpan.innerHTML = heading;
+
+        return this;
+    }
+
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-card/smdui-card.css');
         this.shadowRoot.appendChild(linkElem);
-
-        if (this.hasAttribute('heading')) {
-            this.heading = this.getAttribute('heading');
-            this.headingSpan.classList.add('heading');
-            this.headingSpan.innerHTML = this.heading;
-
-        }
-
 
         this.contentDiv = document.createElement('div');
         this.contentDiv.classList.add('content-div');
@@ -42,12 +46,6 @@ class Card extends HTMLElement {
         contentSlot.classList.add('content-slot');
         contentSlot.setAttribute('name', 'content-slot');
         this.contentDiv.appendChild(contentSlot);
-    }
-
-    setHeading(heading) {
-        this.setAttribute('heading', heading);
-        this.headingSpan.classList.add('heading');
-        return this;
     }
 
     addContent(content) { //Allows to insert content rather than using slot. Should be styled before.
@@ -85,7 +83,7 @@ class Card extends HTMLElement {
     attributeChangedCallback(name, oldVal, newVal) {
         if (name === 'heading') {
             this.heading = newVal;
-            this.headingSpan.innerHTML = this.heading;
+            // this.headingSpan.innerHTML = this.heading;
         }
     }
 

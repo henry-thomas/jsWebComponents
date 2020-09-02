@@ -2,9 +2,6 @@ class NameValue extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-        this.itemName = '';
-        this.itemValue = '';
-        this.itemUnit = '';
         this.contentDiv = document.createElement('div');
         this.nameSpan = document.createElement('span');
         this.valueSpan = document.createElement('span');
@@ -15,15 +12,6 @@ class NameValue extends HTMLElement {
     }
 
     init() {
-        if (this.hasAttribute('item-name')) {
-            this.itemName = this.getAttribute('item-name');
-        }
-        if (this.hasAttribute('item-value')) {
-            this.itemValue = this.getAttribute('item-value');
-        }
-        if (this.hasAttribute('item-unit')) {
-            this.itemUnit = this.getAttribute('item-unit');
-        }
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-name-value/smdui-name-value.css');
@@ -43,12 +31,12 @@ class NameValue extends HTMLElement {
 
         this.nameSpan.classList.add('name-span');
         nameSpanContainer.appendChild(this.nameSpan);
-        this.nameSpan.innerHTML = this.itemName;
+        this.nameSpan.innerHTML = this.name;
 
 
         this.valueSpan.classList.add('value-span');
         valueSpanContainer.appendChild(this.valueSpan);
-        this.valueSpan.innerHTML = this.itemValue;
+        this.valueSpan.innerHTML = this.value;
 
 
         this.unitSpan.classList.add('unit-span');
@@ -56,19 +44,37 @@ class NameValue extends HTMLElement {
         this.unitSpan.innerHTML = this.itemUnit;
     }
 
+    set name(name) {
+        this.setAttribute('item-name', name);
+        return this;
+    }
+
+    get name() {
+        return this.getAttribute('item-name');
+    }
+
+    set value(value) {
+        this.setAttribute('item-value', value);
+        return this;
+    }
+
+    get value() {
+        return this.getAttribute('item-value');
+    }
+
+    set unit(unit) {
+        this.setAttribute('item-unit', unit);
+        return this;
+    }
+
+    get unit() {
+        return this.getAttribute('item-unit');
+    }
+
     connectedCallback() {
         //tooltip add script
-        try {
-            if ((this.parentNode.querySelectorAll('smdui-name-value').length <= 1)) {
-                if (!document.querySelector('script[src="./smdui-tooltip/smdui-tooltip.js"]')) {
-                    const tooltipElSrc = document.createElement('script');
-                    tooltipElSrc.setAttribute('src', './smdui-tooltip/smdui-tooltip.js');
-                    this.shadowRoot.appendChild(tooltipElSrc);
-                } else { return }
-            };
-        } catch (error) {
-            console.warn(error);
-        }
+        import ('../smdui-tooltip/smdui-tooltip.js').catch(error => { return })
+
         this.nameTooltip = document.createElement('smdui-tooltip');
         this.valueTooltip = document.createElement('smdui-tooltip');
 
@@ -80,16 +86,13 @@ class NameValue extends HTMLElement {
 
     attributeChangedCallback(name, oldVal, newVal) {
         if (name === 'item-name' && this.nameSpan) {
-            this.itemName = newVal;
-            this.nameSpan.innerHTML = this.itemName;
+            this.nameSpan.innerHTML = newVal;
         }
         if (name === 'item-value' && this.valueSpan) {
-            this.itemValue = newVal;
-            this.valueSpan.innerHTML = this.itemValue;
+            this.valueSpan.innerHTML = newVal;
         }
         if (name === 'item-unit' && this.unitSpan) {
-            this.itemUnit = newVal;
-            this.unitSpan.innerHTML = this.itemUnit;
+            this.unitSpan.innerHTML = newVal;
         }
     }
 
@@ -109,21 +112,6 @@ class NameValue extends HTMLElement {
         this.valueTooltip.setAttribute('text', text);
         this.valueSpan.parentNode.replaceChild(this.valueTooltip, this.valueSpan);
         this.valueTooltip.appendChild(this.valueSpan);
-    }
-
-    setName(name) {
-        this.setAttribute('item-name', name);
-        return this;
-    }
-
-    setValue(value) {
-        this.setAttribute('item-value', value);
-        return this;
-    }
-
-    setUnit(unit) {
-        this.setAttribute('item-unit', unit);
-        return this;
     }
 }
 
