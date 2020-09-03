@@ -1,20 +1,18 @@
 class Tooltip extends HTMLElement {
     constructor() {
         super();
-        this._tooltipTarget;
         this._tooltipVisible = false;
         this.attachShadow({ mode: 'open' });
         this.init();
     }
 
     init() {
-        const linkElem = document.createElement('link'); //link for external stylesheet
-        linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', 'smdui-tooltip/smdui-tooltip.css');
-        this.shadowRoot.appendChild(linkElem);
-
         this._tooltipTarget = document.createElement('slot');
         this.shadowRoot.appendChild(this._tooltipTarget);
+        this._tooltipTarget.addEventListener('mouseenter', this._showTooltip.bind(this));
+        this._tooltipTarget.addEventListener('mouseleave', this._hideTooltip.bind(this));
+        this.tooltipContainer = document.createElement('div');
+        this.shadowRoot.appendChild(this.tooltipContainer);
     }
 
     set text(text) {
@@ -33,13 +31,14 @@ class Tooltip extends HTMLElement {
     }
 
     connectedCallback() {
-        this._tooltipTarget.addEventListener('mouseenter', this._showTooltip.bind(this));
-        this._tooltipTarget.addEventListener('mouseleave', this._hideTooltip.bind(this));
-        this.tooltipContainer = document.createElement('div');
-        this.shadowRoot.appendChild(this.tooltipContainer);
+        const linkElem = document.createElement('link'); //link for external stylesheet
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', 'smdui-tooltip/smdui-tooltip.css');
+        this.shadowRoot.appendChild(linkElem);
 
         this._render();
     };
+
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue) {
             return;

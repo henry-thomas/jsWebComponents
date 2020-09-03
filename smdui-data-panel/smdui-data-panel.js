@@ -13,12 +13,28 @@ class DataPanel extends HTMLElement {
         this.contentPanel = document.createElement('div');
         this.contentPanel.classList.add('contentPanel');
         this.panelArr = [];
-        this.orientation = '';
 
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', 'smdui-data-panel/smdui-data-panel.css');
         this.shadowRoot.appendChild(linkElem);
+    }
+
+    get orientation() {
+        if (this.hasAttribute('orientation')) {
+            return this.getAttribute('orientation');
+        } else {
+            this.setAttribute('orientation', 'vertical');
+            return 'vertical';
+        }
+    }
+
+    set orientation(orient) {
+        if (this.hasAttribute('orientation')) {
+            this.setAttribute('orientation', orient);
+        } else {
+            this.setAttribute('orientation', 'vertical');
+        }
     }
 
     connectedCallback() {
@@ -60,25 +76,8 @@ class DataPanel extends HTMLElement {
         }
     }
 
-    get orientation() {
-        if (this.hasAttribute('orientation')) {
-            return this.getAttribute('orientation');
-        } else {
-            this.setAttribute('orientation', 'vertical');
-            return 'vertical';
-        }
-    }
-
-    set orientation(orient) {
-        if (this.hasAttribute('orientation')) {
-            this.setAttribute('orientation', orient);
-        }
-    }
 
     _onToggleOrientation() {
-        if (!this.hasAttribute('orientation')) {
-            this.setAttribute('orientation', this.orientation);
-        }
 
         if (this.orientation === 'vertical') {
             this.contentPanel.classList.remove('horizontal');

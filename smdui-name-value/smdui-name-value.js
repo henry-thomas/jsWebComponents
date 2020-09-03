@@ -2,20 +2,16 @@ class NameValue extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
+        this.init();
+    }
+
+    init() {
         this.contentDiv = document.createElement('div');
         this.nameSpan = document.createElement('span');
         this.valueSpan = document.createElement('span');
         this.unitSpan = document.createElement('span');
         this.nameTooltip;
         this.valueTooltip;
-        this.init();
-    }
-
-    init() {
-        const linkElem = document.createElement('link'); //link for external stylesheet
-        linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', 'smdui-name-value/smdui-name-value.css');
-        this.shadowRoot.appendChild(linkElem);
 
         this.contentDiv.classList.add('content-div');
         this.shadowRoot.appendChild(this.contentDiv);
@@ -72,12 +68,22 @@ class NameValue extends HTMLElement {
     }
 
     connectedCallback() {
+        const linkElem = document.createElement('link'); //link for external stylesheet
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', 'smdui-name-value/smdui-name-value.css');
+        this.shadowRoot.appendChild(linkElem);
+
         //tooltip add script
         import ('../smdui-tooltip/smdui-tooltip.js').catch(error => { return })
 
-        this.nameTooltip = document.createElement('smdui-tooltip');
-        this.valueTooltip = document.createElement('smdui-tooltip');
+        try {
+            this.nameTooltip = document.createElement('smdui-tooltip');
+            this.valueTooltip = document.createElement('smdui-tooltip');
+        } catch {
+            return
+        }
 
+        return this;
     }
 
     static get observedAttributes() {
@@ -113,6 +119,7 @@ class NameValue extends HTMLElement {
         this.valueSpan.parentNode.replaceChild(this.valueTooltip, this.valueSpan);
         this.valueTooltip.appendChild(this.valueSpan);
     }
+
 }
 
 customElements.define('smdui-name-value', NameValue);

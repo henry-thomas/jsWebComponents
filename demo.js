@@ -56,7 +56,7 @@
 
         createButton: function() {
             let btn = document.createElement('smdui-button');
-            btn.setText('Open Modal');
+            btn.text = ('Open Modal');
             btn.addEventListener('click', () => {
                 this.modal.open();
             })

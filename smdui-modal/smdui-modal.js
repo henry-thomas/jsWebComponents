@@ -4,6 +4,10 @@ class Modal extends HTMLElement {
         super();
         this.attachShadow({ mode: "open" });
         this.isOpen = false;
+        this.init();
+    }
+
+    init() {
         this.backdrop = document.createElement('div');
         this.header = document.createElement('header');
         this.head = document.createElement('h2');
@@ -11,14 +15,6 @@ class Modal extends HTMLElement {
         this.modal = document.createElement('div');
         this.actionsSection = document.createElement('section');
         this.footer = document.createElement('footer');
-        this.init();
-    }
-
-    init() {
-        const linkElem = document.createElement('link'); //link for external stylesheet
-        linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', 'smdui-modal/smdui-modal.css');
-        this.shadowRoot.appendChild(linkElem);
         this.backdrop.setAttribute('id', 'backdrop');
 
         this.modal.setAttribute('id', 'modal');
@@ -35,22 +31,7 @@ class Modal extends HTMLElement {
 
         this.actionsSlot = document.createElement('slot');
         this.actionsSlot.setAttribute('name', 'actions');
-    }
 
-    set heading(heading) {
-        if (this.hasAttribute('heading')) {
-            this.setAttribute('heading', heading);
-        }
-        this.head.innerHTML = heading;
-    }
-
-    get heading() {
-        if (this.hasAttribute('heading')) {
-            return this.getAttribute('heading');
-        }
-    }
-
-    connectedCallback() {
         this.backdrop.addEventListener('click', this._cancel.bind(this))
         this.shadowRoot.appendChild(this.backdrop);
         this.shadowRoot.appendChild(this.modal);
@@ -62,6 +43,25 @@ class Modal extends HTMLElement {
         this.footer.appendChild(this.footerSlot);
         this.modal.appendChild(this.actionsSection);
         this.actionsSection.appendChild(this.actionsSlot);
+    }
+
+    set heading(heading) {
+        this.setAttribute('heading', heading);
+        this.head.innerHTML = heading;
+    }
+
+    get heading() {
+        if (this.hasAttribute('heading')) {
+            return this.getAttribute('heading');
+        }
+    }
+
+    connectedCallback() {
+        const linkElem = document.createElement('link'); //link for external stylesheet
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', 'smdui-modal/smdui-modal.css');
+        this.shadowRoot.appendChild(linkElem);
+
         if (!this.hasAttribute('heading')) {
             this.setAttribute('heading', this.heading);
         }
@@ -102,16 +102,14 @@ class Modal extends HTMLElement {
     }
 
     addButton(name, cb) {
-
         import ('../smdui-button/smdui-button.js').catch(err => { return });
 
         let newButton = document.createElement('smdui-button');
-        newButton.setText(name);
+        newButton.text = (name);
         newButton.addEventListener('click', cb);
         this.actionsSection.appendChild(newButton);
         return newButton;
     }
-
 
     setContent(el, replace) {
         try {
