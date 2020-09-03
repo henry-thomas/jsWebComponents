@@ -3,7 +3,7 @@ class DataPanel extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.init();
-        this.path = 'smdui-data-panel/';
+        this.styleSheetPath = 'smdui-data-panel/smdui-data-panel.css';
     }
 
     init() {
@@ -40,7 +40,7 @@ class DataPanel extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.path + 'smdui-data-panel.css');
+        linkElem.setAttribute('href', this.styleSheetPath);
         this.shadowRoot.appendChild(linkElem);
         this._onToggleOrientation();
     }

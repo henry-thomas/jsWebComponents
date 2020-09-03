@@ -5,7 +5,9 @@ class Modal extends HTMLElement {
         this.attachShadow({ mode: "open" });
         this.isOpen = false;
         this.init();
-        this.path = 'smdui-modal/';
+        this.stylesheetPath = 'smdui-modal/smdui-modal.css';
+        this.buttonJsPath = '../smdui-button/smdui-button.js';
+
     }
 
     init() {
@@ -60,7 +62,7 @@ class Modal extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.path + 'smdui-modal.css');
+        linkElem.setAttribute('href', this.stylesheetPath);
         this.shadowRoot.appendChild(linkElem);
 
         if (!this.hasAttribute('heading')) {
@@ -103,7 +105,7 @@ class Modal extends HTMLElement {
     }
 
     addButton(name, cb) {
-        import ('../smdui-button/smdui-button.js').catch(err => { return });
+        import (this.buttonJsPath).catch(err => { return });
 
         let newButton = document.createElement('smdui-button');
         newButton.text = (name);
