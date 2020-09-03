@@ -3,17 +3,19 @@ class Button extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.init();
+        this.path = 'smdui-button/';
     }
 
     init() {
         this.button = document.createElement('button');
-        const linkElem = document.createElement('link'); //link for external stylesheet
-        linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', 'smdui-button/smdui-button.css');
-        this.shadowRoot.appendChild(linkElem);
     }
 
     connectedCallback() {
+        const linkElem = document.createElement('link'); //link for external stylesheet
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', this.path + 'smdui-button.css');
+        this.shadowRoot.appendChild(linkElem);
+
         this.shadowRoot.appendChild(this.button);
         if (!this.hasAttribute('type')) {
             this.setAttribute('type', 'primary--button');

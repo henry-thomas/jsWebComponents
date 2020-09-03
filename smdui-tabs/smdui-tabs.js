@@ -6,21 +6,19 @@ class Tabs extends HTMLElement {
         this.tabsArr = [];
         this.attachShadow({ mode: 'open' });
         this.init();
+        this.path = 'smdui-tabs/';
     }
 
     init() {
         this._wrapper = document.createElement('div');
         this._wrapper.classList.add('wrapper');
-
-        const linkElem = document.createElement('link'); //link for external stylesheet
-        linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', 'smdui-tabs/smdui-tabs.css');
-        this.shadowRoot.appendChild(linkElem);
-
-        //attach to component
     }
 
     connectedCallback() {
+        const linkElem = document.createElement('link'); //link for external stylesheet
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', this.path + 'smdui-tabs.css');
+        this.shadowRoot.appendChild(linkElem);
         this.shadowRoot.appendChild(this._wrapper);
     }
 
