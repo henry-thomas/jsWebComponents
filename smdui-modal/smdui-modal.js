@@ -5,6 +5,7 @@ class Modal extends HTMLElement {
         this.attachShadow({ mode: "open" });
         this.isOpen = false;
         this.init();
+        this.path = 'smdui-modal/';
     }
 
     init() {
@@ -59,7 +60,7 @@ class Modal extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', 'smdui-modal/smdui-modal.css');
+        linkElem.setAttribute('href', this.path + 'smdui-modal.css');
         this.shadowRoot.appendChild(linkElem);
 
         if (!this.hasAttribute('heading')) {

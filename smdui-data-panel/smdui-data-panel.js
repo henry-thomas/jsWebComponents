@@ -3,6 +3,7 @@ class DataPanel extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.init();
+        this.path = 'smdui-data-panel/';
     }
 
     init() {
@@ -12,12 +13,11 @@ class DataPanel extends HTMLElement {
         this.settingsPanel.classList.add('settingsPanel')
         this.contentPanel = document.createElement('div');
         this.contentPanel.classList.add('contentPanel');
+        this.wrapper.appendChild(this.settingsPanel);
+        this.wrapper.appendChild(this.contentPanel);
+        this.shadowRoot.appendChild(this.wrapper);
         this.panelArr = [];
 
-        const linkElem = document.createElement('link'); //link for external stylesheet
-        linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', 'smdui-data-panel/smdui-data-panel.css');
-        this.shadowRoot.appendChild(linkElem);
     }
 
     get orientation() {
@@ -38,9 +38,10 @@ class DataPanel extends HTMLElement {
     }
 
     connectedCallback() {
-        this.wrapper.appendChild(this.settingsPanel);
-        this.wrapper.appendChild(this.contentPanel);
-        this.shadowRoot.appendChild(this.wrapper);
+        const linkElem = document.createElement('link'); //link for external stylesheet
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', this.path + 'smdui-data-panel.css');
+        this.shadowRoot.appendChild(linkElem);
         this._onToggleOrientation();
     }
 

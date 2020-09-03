@@ -3,6 +3,7 @@ class NameValue extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.init();
+        this.path = 'smdui-name-value/';
     }
 
     init() {
@@ -70,7 +71,7 @@ class NameValue extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', 'smdui-name-value/smdui-name-value.css');
+        linkElem.setAttribute('href', this.path + 'smdui-name-value.css');
         this.shadowRoot.appendChild(linkElem);
 
         //tooltip add script
