@@ -67,7 +67,7 @@
             let modal = document.createElement('smdui-modal');
             this.body.appendChild(modal);
             let modalContent = document.createElement('span');
-            modalContent.innerHTML = "This is the content section of the modal."
+            modalContent.innerHTML = "This is the modal content"
             modal.setContent(modalContent);
             modal.addButton('Okay', () => {
                 console.log('Modal Button Clicked');
@@ -90,9 +90,17 @@
             }
 
 
-            let orientSet = document.createElement('span');
-            orientSet.textContent = 'Orient';
-            dataPanel.addSetting(orientSet, function() { dataPanel.toggleOrientation() });
+            let faStylesheet = document.createElement('link');
+            faStylesheet.setAttribute('rel', 'stylesheet');
+            faStylesheet.setAttribute('href', '../fontAwesome/css/all.min.css');
+            dataPanel.shadowRoot.appendChild(faStylesheet);
+            let orientSets = document.createElement('span');
+            // orientSet.textContent = 'Orient';
+            let orientSet = document.createElement('i');
+            orientSet.classList.add('fas');
+            orientSet.classList.add('fa-sync-alt');
+            orientSets.appendChild(orientSet);
+            dataPanel.addSetting(orientSets, function() { dataPanel.toggleOrientation() });
         },
 
         createTabs: function() {
