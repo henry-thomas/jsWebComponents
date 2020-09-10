@@ -93,7 +93,7 @@
             let faStylesheet = document.createElement('link');
             faStylesheet.setAttribute('rel', 'stylesheet');
             faStylesheet.setAttribute('href', '../fontAwesome/css/all.min.css');
-            dataPanel.shadowRoot.appendChild(faStylesheet);
+            dataPanel.shadowRoot.prepend(faStylesheet);
             let orientSets = document.createElement('span');
             // orientSet.textContent = 'Orient';
             let orientSet = document.createElement('i');

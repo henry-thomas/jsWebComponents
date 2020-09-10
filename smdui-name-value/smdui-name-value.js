@@ -84,8 +84,6 @@ class NameValue extends HTMLElement {
         } catch {
             return
         }
-
-        return this;
     }
 
     static get observedAttributes() {
@@ -111,6 +109,7 @@ class NameValue extends HTMLElement {
         this.nameTooltip.setAttribute('text', text);
         this.nameSpan.parentNode.replaceChild(this.nameTooltip, this.nameSpan);
         this.nameTooltip.appendChild(this.nameSpan);
+        return this;
     }
 
     setValueTooltip(text) {
@@ -120,6 +119,7 @@ class NameValue extends HTMLElement {
         this.valueTooltip.setAttribute('text', text);
         this.valueSpan.parentNode.replaceChild(this.valueTooltip, this.valueSpan);
         this.valueTooltip.appendChild(this.valueSpan);
+        return this;
     }
 
 }
