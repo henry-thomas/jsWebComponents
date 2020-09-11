@@ -13,34 +13,10 @@ import '/smdui-tooltip/smdui-tooltip.js';
     }
 
     Component.init = function(component = null, parentEl = null) {
-        this.component = component;
-        this.parentEl = parentEl;
-
         return Component.prototype.render(component, parentEl);
     };
 
-    Component.init.prototype = Component.prototype;
-
-    root.Component = root.smdui = Component;
-
     Component.prototype = {
-        set component(component) {
-            this.component = component;
-            this.render(this.component, this.parentEl);
-        },
-
-        get component() {
-            return this.component;
-        },
-
-        set parentEl(parentEl) {
-            this.parentEl = parentEl;
-            this.render(this.component, this.parentEl);
-        },
-
-        get parentEl() {
-            return this.parentEl;
-        },
 
         render: function(component, parentEl) {
             this.element;
@@ -74,14 +50,30 @@ import '/smdui-tooltip/smdui-tooltip.js';
                     break;
             }
 
-            if ((this.element !== (null || undefined)) && (parentEl !== (null || undefined))) {
-                console.log(this.element);
+            if ((this.element !== (null)) && (parentEl !== (null))) {
                 if (typeof(parentEl) === "object")
                     parentEl.appendChild(this.element);
             }
+
+            this.addFunctions(this.element);
+
             return this.element;
         },
 
+        addFunctions(element) {
+            element.hide = function() {
+                element.style = 'display: none;';
+            };
+
+            element.show = function() {
+                element.style = 'display: block;'
+            }
+        },
+
     }
+
+    Component.init.prototype = Component.prototype;
+
+    root.Component = root.smdui = Component;
 
 }(window));

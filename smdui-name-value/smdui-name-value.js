@@ -5,6 +5,7 @@ class NameValue extends HTMLElement {
         this.init();
         this.stylesheetPath = 'smdui-name-value/smdui-name-value.css';
         this.tooltipJsPath = '../smdui-tooltip/smdui-tooltip.js';
+        this.tootipAvailable = false; //Flag to indicate whether the script is available
     }
 
     init() {
@@ -12,8 +13,6 @@ class NameValue extends HTMLElement {
         this.nameSpan = document.createElement('span');
         this.valueSpan = document.createElement('span');
         this.unitSpan = document.createElement('span');
-        this.nameTooltip;
-        this.valueTooltip;
 
         this.contentDiv.classList.add('content-div');
         this.shadowRoot.appendChild(this.contentDiv);
@@ -39,12 +38,11 @@ class NameValue extends HTMLElement {
 
         this.unitSpan.classList.add('unit-span');
         this.contentDiv.appendChild(this.unitSpan);
-        this.unitSpan.innerHTML = this.itemUnit;
+        this.unitSpan.innerHTML = this.unit;
     }
 
     set name(name) {
         this.setAttribute('item-name', name);
-        return this;
     }
 
     get name() {
@@ -53,7 +51,6 @@ class NameValue extends HTMLElement {
 
     set value(value) {
         this.setAttribute('item-value', value);
-        return this;
     }
 
     get value() {
@@ -62,12 +59,21 @@ class NameValue extends HTMLElement {
 
     set unit(unit) {
         this.setAttribute('item-unit', unit);
-        return this;
     }
 
     get unit() {
         return this.getAttribute('item-unit');
     }
+
+    set nameTooltip(text) {
+        this.setNameTooltip(text);
+    }
+
+    set valueTooltip(text) {
+        this.setValueTooltip(text);
+    }
+
+
 
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
@@ -75,14 +81,14 @@ class NameValue extends HTMLElement {
         linkElem.setAttribute('href', this.stylesheetPath);
         this.shadowRoot.appendChild(linkElem);
 
-        //tooltip add script
-        import (this.tooltipJsPath).catch(error => { return })
+        //tooltip try add script
+        import (this.tooltipJsPath).catch(error => { return; })
 
         try {
-            this.nameTooltip = document.createElement('smdui-tooltip');
-            this.valueTooltip = document.createElement('smdui-tooltip');
-        } catch {
-            return
+            this.nameTooltipEl = document.createElement('smdui-tooltip');
+            this.valueTooltipEl = document.createElement('smdui-tooltip');
+        } catch (error) {
+            return;
         }
     }
 
@@ -104,24 +110,27 @@ class NameValue extends HTMLElement {
 
     setNameTooltip(text) {
         if (text === (null || undefined)) {
-            this.nameTooltip.setAttribute('text', '')
+            this.nameTooltipEl.setAttribute('text', '')
         }
-        this.nameTooltip.setAttribute('text', text);
-        this.nameSpan.parentNode.replaceChild(this.nameTooltip, this.nameSpan);
-        this.nameTooltip.appendChild(this.nameSpan);
+        this.nameTooltipEl.setAttribute('text', text);
+        if (this.nameSpan.parentNode !== this.nameTooltipEl) {
+            this.nameSpan.parentNode.replaceChild(this.nameTooltipEl, this.nameSpan);
+            this.nameTooltipEl.appendChild(this.nameSpan);
+        }
         return this;
     }
 
     setValueTooltip(text) {
         if (text === null || undefined) {
-            this.valueTooltip.setAttribute('text', '')
+            this.valueTooltipEl.setAttribute('text', '')
         }
-        this.valueTooltip.setAttribute('text', text);
-        this.valueSpan.parentNode.replaceChild(this.valueTooltip, this.valueSpan);
-        this.valueTooltip.appendChild(this.valueSpan);
+        this.valueTooltipEl.setAttribute('text', text);
+        if (this.valueSpan.parentNode !== this.valueTooltipEl) {
+            this.valueSpan.parentNode.replaceChild(this.valueTooltipEl, this.valueSpan);
+            this.valueTooltipEl.appendChild(this.valueSpan);
+        }
         return this;
     }
-
 }
 
 customElements.define('smdui-name-value', NameValue);

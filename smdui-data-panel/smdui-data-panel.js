@@ -17,7 +17,6 @@ class DataPanel extends HTMLElement {
         this.wrapper.appendChild(this.contentPanel);
         this.shadowRoot.appendChild(this.wrapper);
         this.panelArr = [];
-
     }
 
     get orientation() {
@@ -49,6 +48,7 @@ class DataPanel extends HTMLElement {
         item.classList.add('panel-item');
         this.panelArr.push(item);
         this.contentPanel.appendChild(item);
+        return this;
     }
 
     removeItems(index, removeAll) {
@@ -66,6 +66,8 @@ class DataPanel extends HTMLElement {
         } catch (error) {
             console.warn(error);
         }
+
+        return this;
     }
 
     addSetting(element, cb) {
@@ -75,8 +77,9 @@ class DataPanel extends HTMLElement {
         if (cb && (typeof cb === "function")) {
             element.addEventListener('click', () => { cb() });
         }
-    }
 
+        return this;
+    }
 
     _onToggleOrientation() {
 
@@ -95,6 +98,7 @@ class DataPanel extends HTMLElement {
         } else if (this.orientation === 'horizontal') {
             this.orientation = 'vertical';
         }
+        return this;
     }
 
     static get observedAttributes() {

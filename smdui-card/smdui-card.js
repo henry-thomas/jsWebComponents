@@ -28,7 +28,6 @@ class Card extends HTMLElement {
 
     set heading(heading) {
         this.setAttribute('heading', heading);
-        return this;
     }
 
     get heading() {
@@ -64,10 +63,10 @@ class Card extends HTMLElement {
                 this.contentDiv.removeChild(this.contentItems[index]);
                 this.contentItems.splice(index, 1);
             }
-
         } catch (error) {
             console.warn(error);
         }
+        return this;
     }
 
     static get observedAttributes() {

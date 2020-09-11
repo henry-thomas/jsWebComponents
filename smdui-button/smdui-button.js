@@ -88,6 +88,7 @@ class Button extends HTMLElement {
                 return;
         }
     }
+
 }
 
 customElements.define('smdui-button', Button);
