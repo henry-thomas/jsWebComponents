@@ -27,13 +27,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 0rem;
-    padding: 0rem;
     /* border: 1px solid rgba(0, 0, 0, 0.3); */
-}
-
-.content-item {
-    padding: 0.0rem;
 }
 
 .content-slot {

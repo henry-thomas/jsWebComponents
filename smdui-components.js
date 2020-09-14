@@ -67,7 +67,7 @@ import '/smdui-tooltip/smdui-tooltip.js';
 
             element.show = function() {
                 element.style = 'display: block;'
-            }
+            };
         },
 
     }

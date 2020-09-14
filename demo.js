@@ -201,10 +201,27 @@ navBar.addTab('Contact', () => { console.log('Nav=>contact') });
 let card = smdui('card', body);
 card.heading = "SMDUI-Card";
 let nv = [];
-for (let i = 1; i <= 8; i++) {
+for (let i = 0; i <= 8; i++) {
     nv[i] = smdui('name-value');
-    nv[i].name = 'Cube of ' + i;
+    nv[i].name = 'Cube of the following is a longer sentence: ' + i;
     nv[i].value = Math.pow(i, 3);
     nv[i].unit = '*';
     card.addContent(nv[i]);
 }
+
+
+let dataPanel = smdui('data-panel', wrapper);
+let deviceEl = document.createElement('div');
+let deviceSpan = document.createElement('span');
+let faStylesheet = document.createElement('link');
+faStylesheet.setAttribute('rel', 'stylesheet');
+faStylesheet.setAttribute('href', '../fontAwesome/css/all.min.css');
+dataPanel.shadowRoot.prepend(faStylesheet);
+
+deviceSpan.classList.add('fas');
+deviceSpan.classList.add('fa-sync-alt');
+
+deviceEl.appendChild(deviceSpan);
+dataPanel.addItem(deviceEl);
+
+deviceEl.addEventListener('mouseover', () => { console.log(dataPanel.panelArr) })
