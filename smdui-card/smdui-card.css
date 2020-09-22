@@ -9,6 +9,7 @@
     font-variant: petite-caps;
     width: fit-content;
     background: rgb(252, 252, 252);
+    /* position: relative; */
 }
 
 .heading {

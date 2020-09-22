@@ -194,11 +194,11 @@ let body = document.querySelector('body');
 let wrapper = document.querySelector('.wrapper');
 let content = document.querySelector('.content-div');
 
-let navBar = smdui('nav-bar', body);
+let navBar = smdui('nav-bar', wrapper);
 navBar.addTab('Home', () => { console.log('Nav=>home') });
 navBar.addTab('Contact', () => { console.log('Nav=>contact') });
 
-let card = smdui('card', body);
+let card = smdui('card', content);
 card.heading = "SMDUI-Card";
 let nv = [];
 for (let i = 0; i <= 8; i++) {
@@ -210,7 +210,7 @@ for (let i = 0; i <= 8; i++) {
 }
 
 
-let dataPanel = smdui('data-panel', wrapper);
+let dataPanel = smdui('data-panel', content);
 let deviceEl = document.createElement('div');
 let deviceSpan = document.createElement('span');
 let faStylesheet = document.createElement('link');
@@ -225,3 +225,14 @@ deviceEl.appendChild(deviceSpan);
 dataPanel.addItem(deviceEl);
 
 deviceEl.addEventListener('mouseover', () => { console.log(dataPanel.panelArr) })
+
+let dialog = smdui('dialog', body);
+dialog.heading = 'LoggerV2-Relay1';
+let dialogContent = smdui('tabs');
+dialogContent.addTab('HI', () => { console.log('hi') });
+dialog.content = dialogContent;
+let btn = smdui('button', content);
+btn.text = 'Open Dialog';
+btn.addEventListener('click', () => {
+    dialog.open();
+});

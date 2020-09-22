@@ -5,7 +5,7 @@ class Tooltip extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.init();
 
-        this.stylesheetPath = 'smdui-tooltip/smdui-tooltip.css';
+        this.stylesheetPath = '';
     }
 
     init() {
@@ -35,7 +35,7 @@ class Tooltip extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.stylesheetPath);
+        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-tooltip/smdui-tooltip.css');
         this.shadowRoot.appendChild(linkElem);
 
         this._render();

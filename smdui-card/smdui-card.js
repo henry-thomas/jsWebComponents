@@ -4,7 +4,7 @@ class Card extends HTMLElement {
         this.attachShadow({ mode: 'open' });
         this.contentItems = [];
         this.init();
-        this.stylesheetPath = 'smdui-card/smdui-card.css';
+        this.stylesheetPath = '';
     }
 
     init() {
@@ -37,7 +37,7 @@ class Card extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.stylesheetPath);
+        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-card/smdui-card.css');
         this.shadowRoot.appendChild(linkElem);
     }
 

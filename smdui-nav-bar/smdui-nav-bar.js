@@ -7,13 +7,13 @@ class NavBar extends HTMLElement {
         this.mainSection = document.createElement('div');
         this.tabsSection = document.createElement('div');
         this.init();
-        this.stylesheetPath = 'smdui-nav-bar/smdui-nav-bar.css';
+        this.stylesheetPath = '';
     }
 
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.stylesheetPath);
+        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-nav-bar/smdui-nav-bar.css');
         this.shadowRoot.appendChild(linkElem);
     }
 

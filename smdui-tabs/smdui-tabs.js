@@ -6,7 +6,7 @@ class Tabs extends HTMLElement {
         this.tabsArr = [];
         this.attachShadow({ mode: 'open' });
         this.init();
-        this.stylesheetPath = 'smdui-tabs/smdui-tabs.css';
+        this.stylesheetPath = '';
     }
 
     init() {
@@ -17,7 +17,7 @@ class Tabs extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.stylesheetPath);
+        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-tabs/smdui-tabs.css');
         this.shadowRoot.appendChild(linkElem);
         this.shadowRoot.appendChild(this._wrapper);
     }

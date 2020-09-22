@@ -3,7 +3,7 @@ class DataPanel extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.init();
-        this.styleSheetPath = 'smdui-data-panel/smdui-data-panel.css';
+        this.styleSheetPath = '';
     }
 
     init() {
@@ -39,7 +39,7 @@ class DataPanel extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.styleSheetPath);
+        linkElem.setAttribute('href', this.styleSheetPath + '/smdui-data-panel/smdui-data-panel.css');
         this.shadowRoot.appendChild(linkElem);
         this._onToggleOrientation();
     }
@@ -66,7 +66,6 @@ class DataPanel extends HTMLElement {
         } catch (error) {
             console.warn(error);
         }
-
         return this;
     }
 

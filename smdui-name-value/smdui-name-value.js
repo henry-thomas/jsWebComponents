@@ -3,7 +3,7 @@ class NameValue extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.init();
-        this.stylesheetPath = 'smdui-name-value/smdui-name-value.css';
+        this.stylesheetPath = '';
         this.tooltipJsPath = '../smdui-tooltip/smdui-tooltip.js';
         this.tootipAvailable = false; //Flag to indicate whether the script is available
     }
@@ -78,7 +78,7 @@ class NameValue extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.stylesheetPath);
+        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-name-value/smdui-name-value.css');
         this.shadowRoot.appendChild(linkElem);
 
         //tooltip try add script

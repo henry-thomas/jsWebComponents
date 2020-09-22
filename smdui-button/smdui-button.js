@@ -3,7 +3,7 @@ class Button extends HTMLElement {
         super();
         this.attachShadow({ mode: 'open' });
         this.init();
-        this.stylesheetPath = 'smdui-button/smdui-button.css';
+        this.stylesheetPath = '';
     }
 
     init() {
@@ -13,7 +13,7 @@ class Button extends HTMLElement {
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.stylesheetPath);
+        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-button/smdui-button.css');
         this.shadowRoot.appendChild(linkElem);
 
         this.shadowRoot.appendChild(this.button);
