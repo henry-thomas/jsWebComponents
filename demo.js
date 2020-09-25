@@ -194,9 +194,10 @@ let body = document.querySelector('body');
 let wrapper = document.querySelector('.wrapper');
 let content = document.querySelector('.content-div');
 
-let navBar = smdui('nav-bar', wrapper);
+let navBar = smdui('nav-bar');
 navBar.addTab('Home', () => { console.log('Nav=>home') });
 navBar.addTab('Contact', () => { console.log('Nav=>contact') });
+body.prepend(navBar);
 
 let card = smdui('card', content);
 card.heading = "SMDUI-Card";
@@ -238,3 +239,5 @@ btn.addEventListener('click', () => {
     dialog.content = dialogContent;
     dialog.open();
 });
+
+let dropdown = smdui('dropdown', content);
