@@ -97,7 +97,7 @@ class Modal extends HTMLElement {
         this.isOpen = true;
     }
 
-    hide() {
+    close() {
         if (this.hasAttribute('opened')) {
             this.removeAttribute('opened');
         }
@@ -105,7 +105,7 @@ class Modal extends HTMLElement {
     }
 
     addButton(name, cb) {
-        import (this.buttonJsPath).catch(err => { return });
+        import (this.buttonJsPath).catch(() => { return; });
 
         let newButton = document.createElement('smdui-button');
         newButton.text = (name);
@@ -124,13 +124,13 @@ class Modal extends HTMLElement {
     }
 
     _cancel(event) {
-        this.hide();
+        this.close();
         const cancelEvent = new Event('cancel', { bubbles: true, composed: true });
         event.target.dispatchEvent(cancelEvent);
     }
 
     _confirm(event) {
-        this.hide();
+        this.close();
         const confirmEvent = new Event('confirm')
         this.dispatchEvent(confirmEvent);
     }

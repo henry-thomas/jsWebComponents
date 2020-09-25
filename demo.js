@@ -226,13 +226,15 @@ dataPanel.addItem(deviceEl);
 
 deviceEl.addEventListener('mouseover', () => { console.log(dataPanel.panelArr) })
 
-let dialog = smdui('dialog', body);
-dialog.heading = 'LoggerV2-Relay1';
-let dialogContent = smdui('tabs');
-dialogContent.addTab('HI', () => { console.log('hi') });
-dialog.content = dialogContent;
+
 let btn = smdui('button', content);
 btn.text = 'Open Dialog';
+btn.type = 'small'
 btn.addEventListener('click', () => {
+    let dialog = smdui('dialog', body);
+    dialog.heading = 'LoggerV2-Relay1';
+    let dialogContent = smdui('tabs');
+    dialogContent.addTab('HI', () => { console.log('hi') });
+    dialog.content = dialogContent;
     dialog.open();
 });

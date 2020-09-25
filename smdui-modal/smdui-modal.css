@@ -14,7 +14,7 @@
 :host([opened]) #modal {
     opacity: 1;
     pointer-events: all;
-    transition: opacity 300ms, top 300ms;
+    transition: all 200ms;
 }
 
 :host([opened]) #modal {
@@ -24,8 +24,8 @@
 #modal {
     position: fixed;
     top: 10vh;
-    left: 25%;
-    width: 50%;
+    left: 35%;
+    width: 30%;
     z-index: 100;
     background: white;
     border-radius: 3px;
@@ -62,4 +62,10 @@ header {
 footer {
     display: flex;
     justify-content: center;
+}
+
+.alertDialogPanel {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }

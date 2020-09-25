@@ -16,10 +16,10 @@ class Button extends HTMLElement {
         linkElem.setAttribute('href', this.stylesheetPath + '/smdui-button/smdui-button.css');
         this.shadowRoot.appendChild(linkElem);
 
-        this.shadowRoot.appendChild(this.button);
         if (!this.hasAttribute('type')) {
             this.setAttribute('type', 'primary--button');
         }
+        this.shadowRoot.appendChild(this.button);
     }
 
     set text(text) {
@@ -83,6 +83,9 @@ class Button extends HTMLElement {
                 break;
             case 'secondary':
                 this.button.classList.add('secondary--button');
+                break;
+            case 'small':
+                this.button.classList.add('small--button');
                 break;
             default:
                 return;

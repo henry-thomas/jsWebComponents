@@ -1,8 +1,8 @@
 button {
     font-family: "Roboto", "Helvetica Neue", sans-serif;
-    border: none;
+    border: 1px solid #cccccc;
     color: rgb(49, 49, 49);
-    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);
+    /*box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);*/
     border-radius: 12px;
     background-color: rgb(240, 240, 240);
     height: fit-content;
@@ -19,25 +19,22 @@ button {
 
 button:hover {
     cursor: pointer;
-    border: none;
-    box-shadow: 1px 1px 4px 2px rgba(0, 0, 0, 0.6);
+    background-color: rgba(127, 127, 127, 0.2);
     transition: all 80ms ease-in;
 }
 
 button:disabled {
     color: rgb(141, 141, 141);
-    box-shadow: 1px 1px 1px 1px rgba(141, 141, 141, 0.6);
 }
 
 button:disabled:hover {
     cursor: default;
-    box-shadow: 1px 1px 1px 1px rgba(141, 141, 141, 0.6);
 }
 
 button:active {
     outline: none;
     border: none;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.1);
+    /*box-shadow: 0px 1px 0px 1px rgba(0, 0, 0, 0.1);*/
 }
 
 button:focus {
@@ -63,4 +60,21 @@ button:focus {
 .primary--button {
     background: rgb(240, 240, 240);
     color: rgb(49, 49, 49);
+}
+
+.small--button {
+    font-weight: normal;
+    font-size: 14px;
+    border-radius: 3px;
+    border: none;
+    height: fit-content;
+    width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: #666666;
+    background-color: #f4f4f4;
+    -webkit-font-smoothing: antialiased;
+    margin: 2px;
 }

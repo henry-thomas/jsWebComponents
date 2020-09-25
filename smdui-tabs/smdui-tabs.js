@@ -2,8 +2,9 @@ class Tabs extends HTMLElement {
     constructor() {
         super();
         this._wrapper;
-        this.selectedTab;
         this.tabsArr = [];
+        this.pagesArr = [];
+        this.collection = [];
         this.attachShadow({ mode: 'open' });
         this.init();
         this.stylesheetPath = '';
@@ -12,6 +13,12 @@ class Tabs extends HTMLElement {
     init() {
         this._wrapper = document.createElement('div');
         this._wrapper.classList.add('wrapper');
+        this.tabArea = document.createElement('div');
+        this.tabArea.classList.add('tab-tab-area');
+        this._wrapper.appendChild(this.tabArea);
+        this.pageArea = document.createElement('div');
+        this.pageArea.classList.add('tab-page');
+        this._wrapper.appendChild(this.pageArea);
     }
 
     connectedCallback() {
@@ -22,15 +29,23 @@ class Tabs extends HTMLElement {
         this.shadowRoot.appendChild(this._wrapper);
     }
 
-    addTab(name, cb) {
+    addTab(name, page, cb) {
 
         const tab = document.createElement('div');
         tab.classList.add('tab');
         tab.addEventListener('click', () => {
-            cb();
-            this.setSelected(tab);
+            if (typeof(cb) === 'function') {
+                cb();
+            }
+            this.selectedTab = tab;
+            this.selectedPage = page;
         });
-        this._wrapper.appendChild(tab);
+        this.tabArea.appendChild(tab);
+
+        if (typeof(page) === 'object') {
+            this.pageArea.appendChild(page);
+            page.classList.add('page');
+        }
 
         const tabContent = document.createElement('span');
         tabContent.classList.add('tab-content');
@@ -38,19 +53,51 @@ class Tabs extends HTMLElement {
         tabContent.innerHTML = name;
 
         this.tabsArr.push(tab);
+        this.pagesArr.push(page);
+        this.collection.push({ tab: tab, page: page });
+
 
         if (this.selectedTab === undefined) {
             this.selectedTab = this.tabsArr[0];
-            this.setSelected(this.selectedTab);
+            if (typeof(page) === 'object') {
+                this.selectedPage = this.pagesArr[0];
+            }
+        }
+        return { tab: tab, page: page };
+    }
+
+    removeTab(tabCollection) {
+        for (let tabCol in this.collection) {
+            if (tabCollection.page === this.collection[tabCol].page) {
+                this.collection[tabCol].page.remove();
+                this.collection[tabCol].tab.remove();
+            }
         }
     }
 
-    setSelected(tab) {
+    set selectedTab(tab) {
         let selectedTab = tab;
-        for (let i = 0; i < this._wrapper.children.length; i++) {
+        for (let i = 0; i < this.tabsArr.length; i++) {
             this.tabsArr[i].classList.remove('selected');
         }
         selectedTab.classList.add('selected');
+    }
+
+    set selectedPage(page) {
+        for (let i = 0; i < this.pagesArr.length; i++) {
+            this.pagesArr[i].classList.remove('visible');
+            this.pagesArr[i].classList.add('hidden');
+        }
+        page.classList.add('visible');
+        page.classList.remove('hidden');
+    }
+
+    get selectedCollection() {
+        for (let i = 0; i < this.tabsArr.length; i++) {
+            if (this.tabsArr[i].classList.contains('.selected')) {
+                return this.collection[i];
+            }
+        }
     }
 }
 

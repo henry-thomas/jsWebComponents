@@ -9,7 +9,9 @@
     border: 1px solid #cccccc;
     border-radius: 3px;
     z-index: 10;
-    display: none;
+    opacity: 0;
+    top: 30%;
+    left: 30%;
 }
 
 .smdui-dialog-header {
@@ -19,11 +21,13 @@
     height: fit-content;
     width: 100%;
     border-bottom: 1px solid #cccccc;
+    background: rgb(235, 234, 234);
 }
 
 .smdui-dialog-wrapper.open {
-    display: flex;
     pointer-events: all;
+    opacity: 1;
+    transition: opacity 300ms;
 }
 
 .smdui-dialog-content {
@@ -35,6 +39,7 @@
 .smdui-dialog-close-button {
     margin-inline-start: auto;
     padding: 5px;
+    color: gray;
 }
 
 .smdui-dialog-close-button:hover {

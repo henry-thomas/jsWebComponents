@@ -36,18 +36,46 @@ class DataPanel extends HTMLElement {
         }
     }
 
+    set selectedPanel(panel) {
+        if (this.panelArr.length !== 0) {
+            for (let i = 0; i < this.panelArr.length; i++) {
+                if (this.panelArr[i] !== panel) {
+                    this.panelArr[i].classList.remove('selected');
+                } else {
+                    this.panelArr[i].classList.add('selected');
+                }
+            }
+        }
+    }
+
+    get selectedPanel() {
+        if (this.panelArr.length !== 0) {
+            for (let i = 0; i < this.panelArr.length; i++) {
+                if (this.panelArr[i].classList.contains('selected')) {
+                    return this.panelArr[i];
+                }
+
+            }
+        }
+    }
+
     connectedCallback() {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', this.styleSheetPath + '/smdui-data-panel/smdui-data-panel.css');
         this.shadowRoot.appendChild(linkElem);
         this._onToggleOrientation();
+        this.selectedPanel = this.panelArr[0];
     }
 
     addItem(item) {
         item.classList.add('panel-item');
+        if (item.classList.contains('selected')) {
+            this.selectedPanel = item;
+        }
         this.panelArr.push(item);
         this.contentPanel.appendChild(item);
+        item.addEventListener('click', () => { this.selectedPanel = item; });
         return this;
     }
 
