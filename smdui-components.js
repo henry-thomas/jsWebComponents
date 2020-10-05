@@ -8,6 +8,7 @@ import '/smdui-tabs/smdui-tabs.js';
 import '/smdui-tooltip/smdui-tooltip.js';
 import '/smdui-dialog/smdui-dialog.js';
 import '/smdui-dropdown/smdui-dropdown.js';
+import '/smdui-paginator/smdui-paginator.js';
 
 (function(root) {
     let Component = function(component, parentEl) {
@@ -52,6 +53,9 @@ import '/smdui-dropdown/smdui-dropdown.js';
                     break;
                 case 'dropdown':
                     this.element = document.createElement('smdui-dropdown');
+                    break;
+                case 'paginator':
+                    this.element = document.createElement('smdui-paginator');
                     break;
                 default:
                     this.element = undefined;

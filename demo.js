@@ -230,7 +230,7 @@ deviceEl.addEventListener('mouseover', () => { console.log(dataPanel.panelArr) }
 
 let btn = smdui('button', content);
 btn.text = 'Open Dialog';
-btn.type = 'small'
+btn.type = 'small';
 btn.addEventListener('click', () => {
     let dialog = smdui('dialog', body);
     dialog.heading = 'LoggerV2-Relay1';
@@ -241,3 +241,9 @@ btn.addEventListener('click', () => {
 });
 
 let dropdown = smdui('dropdown', content);
+dropdown.text = 'Dropdown'
+dropdown.items = [{ name: 'Test', cb: function() { console.log('Test') } }];
+
+let paginator = smdui('paginator', content);
+paginator.addPages({ pages: 5 });
+// card.appendChild(paginator);

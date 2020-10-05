@@ -17,7 +17,7 @@ class Button extends HTMLElement {
         this.shadowRoot.appendChild(linkElem);
 
         if (!this.hasAttribute('type')) {
-            this.setAttribute('type', 'primary--button');
+            this.setAttribute('type', 'small--button');
         }
         this.shadowRoot.appendChild(this.button);
     }
