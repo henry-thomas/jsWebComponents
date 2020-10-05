@@ -57,7 +57,7 @@ class Paginator extends HTMLElement {
             this.setAttribute('page-size', 10);
         }
         if (!this.hasAttribute('visible-tabs')) {
-            this.setAttribute('visible-tabs', 4);
+            this.setAttribute('visible-tabs', 12);
         }
     }
 
@@ -179,7 +179,12 @@ class Paginator extends HTMLElement {
     handleVisibleTabs(navToStart, navToEnd) {
         if (Number(this.selectedPage) === this.lastItem && !navToEnd) {
             navToEnd = true;
-            return;
+            // return;
+        }
+        console.log(this.lastItem - (this.lastItem - this.visibleTabs))
+        if (Number(this.selectedPage) > (this.lastItem - this.visibleTabs) && !navToEnd) {
+            navToEnd = true;
+            // return;
         }
         if (this.visibleTabs > 1) {
             let start = (this.selectedPage) - 1;
@@ -257,6 +262,9 @@ class Paginator extends HTMLElement {
         if (name === 'visible-tabs') {
             if (this.getAttribute('visible-tabs') < 3) {
                 this.visibleTabs = 3;
+            }
+            if (oldVal) {
+                this.handleVisibleTabs();
             }
         };
     }

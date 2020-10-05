@@ -245,5 +245,5 @@ dropdown.text = 'Dropdown'
 dropdown.items = [{ name: 'Test', cb: function() { console.log('Test') } }];
 
 let paginator = smdui('paginator', content);
-paginator.addPages({ pages: 5 });
+paginator.addPages({ pages: 15 });
 // card.appendChild(paginator);
