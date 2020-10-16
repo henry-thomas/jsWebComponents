@@ -81,13 +81,11 @@ class NameValue extends HTMLElement {
         linkElem.setAttribute('href', this.stylesheetPath + '/smdui-name-value/smdui-name-value.css');
         this.shadowRoot.appendChild(linkElem);
 
-        //tooltip try add script
-        import (this.tooltipJsPath).catch(error => { return; })
-
         try {
             this.nameTooltipEl = document.createElement('smdui-tooltip');
             this.valueTooltipEl = document.createElement('smdui-tooltip');
-        } catch (error) {
+        } catch (e) {
+            console.warn(e);
             return;
         }
     }

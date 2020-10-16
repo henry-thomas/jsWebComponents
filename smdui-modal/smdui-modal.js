@@ -105,8 +105,6 @@ class Modal extends HTMLElement {
     }
 
     addButton(name, cb) {
-        import (this.buttonJsPath).catch(() => { return; });
-
         let newButton = document.createElement('smdui-button');
         newButton.text = (name);
         newButton.addEventListener('click', cb);
@@ -118,8 +116,8 @@ class Modal extends HTMLElement {
         try {
             this.mainSection.removeChild(this.mainSection.lastChild);
             this.mainSection.appendChild(el);
-        } catch (err) {
-            console.log(err + '- Modal content should be an element with one parent, but can have nested elements')
+        } catch (e) {
+            console.log(e + '-- Modal content should be an element with one parent, but can have nested elements')
         }
     }
 
