@@ -57,7 +57,7 @@ class Paginator extends HTMLElement {
             this.setAttribute('page-size', 10);
         }
         if (!this.hasAttribute('visible-tabs')) {
-            this.setAttribute('visible-tabs', 12);
+            this.setAttribute('visible-tabs', 4);
         }
     }
 
@@ -146,7 +146,7 @@ class Paginator extends HTMLElement {
         pageButton.addEventListener('click', () => {
             this.selectedPage = Number(text);
             this.handleVisibleTabs()
-            console.log({ page: this.selectedPage, size: this.pageSize })
+                // console.log({ page: this.selectedPage, size: this.pageSize })
         });
         this.pagesArr.push(pageButton);
     };
@@ -181,7 +181,7 @@ class Paginator extends HTMLElement {
             navToEnd = true;
             // return;
         }
-        console.log(this.lastItem - (this.lastItem - this.visibleTabs))
+        // console.log(this.lastItem - (this.lastItem - this.visibleTabs))
         if (Number(this.selectedPage) > (this.lastItem - this.visibleTabs) && !navToEnd) {
             navToEnd = true;
             // return;
@@ -212,9 +212,9 @@ class Paginator extends HTMLElement {
                     this.pagesDiv.appendChild(this.visiblePagesArr[i]);
                 }
             } else if (end !== undefined && start !== undefined && this.pagesArr !== undefined) {
-                if (((end) - (start)) - this.visibleTabs >= -this.visibleTabs) {
+                if (((end) - (start)) - this.visibleTabs > -this.visibleTabs) {
                     this.visiblePagesArr = [];
-                    for (let i = start - 1; i < start + Number(this.visibleTabs) - 1; i++) {
+                    for (let i = start - 1; i <= start + Number(this.visibleTabs) - 1; i++) {
                         if (this.pagesArr[i]) {
                             this.visiblePagesArr.push(this.pagesArr[i])
                         }

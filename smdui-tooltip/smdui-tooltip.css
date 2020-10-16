@@ -12,8 +12,8 @@ div {
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.26);
     opacity: 0;
     transform: translateY(-1rem);
-    transition: all 150ms ease-in;
     pointer-events: none;
+    transition: all 150ms ease-in;
 }
 
 .open {

@@ -2,10 +2,20 @@ class Tooltip extends HTMLElement {
     constructor() {
         super();
         this._tooltipVisible = false;
+        this.attachShadow({ mode: 'open' });
         this.init();
+
+        this.stylesheetPath = '';
     }
 
-    init() {}
+    init() {
+        this._tooltipTarget = document.createElement('slot');
+        this.shadowRoot.appendChild(this._tooltipTarget);
+        this._tooltipTarget.addEventListener('mouseenter', this._showTooltip.bind(this));
+        this._tooltipTarget.addEventListener('mouseleave', this._hideTooltip.bind(this));
+        this.tooltipContainer = document.createElement('div');
+        this.shadowRoot.appendChild(this.tooltipContainer);
+    }
 
     set text(text) {
         if (text) {
@@ -22,21 +32,12 @@ class Tooltip extends HTMLElement {
         return this.getAttribute('text');
     }
 
-    set element(element) {
-        this._tooltipTarget = element;
-        if (element.parentElement && element.parentElement !== this) {
-            element.parentElement.appendChild(this);
-        }
-        this.appendChild(element);
-    }
-
     connectedCallback() {
-        this.appendChild(this._tooltipTarget);
-        this._tooltipTarget.addEventListener('mouseenter', this._showTooltip.bind(this));
-        this._tooltipTarget.addEventListener('mouseleave', this._hideTooltip.bind(this));
-        this.tooltipContainer = document.createElement('div');
-        this.tooltipContainer.classList.add('sui-tt');
-        this.appendChild(this.tooltipContainer);
+        const linkElem = document.createElement('link'); //link for external stylesheet
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-tooltip/smdui-tooltip.css');
+        this.shadowRoot.appendChild(linkElem);
+
         this._render();
     };
 
@@ -58,16 +59,14 @@ class Tooltip extends HTMLElement {
         this._tooltipTarget.removeEventListener('mouseleave', this._hideTooltip);
     }
 
-
-
     _render() {
         this.tooltipContainer.textContent = this._tooltipText || "";
         if (this._tooltipVisible) {
-            this.tooltipContainer.classList.add('sui-tt-open');
+            this.tooltipContainer.classList.add('open');
 
         } else {
             if (this.tooltipContainer)
-                this.tooltipContainer.classList.remove('sui-tt-open');
+                this.tooltipContainer.classList.remove('open');
         }
     }
 
@@ -80,4 +79,4 @@ class Tooltip extends HTMLElement {
         this._render();
     }
 }
-customElements.define('smdui-tooltip', Tooltip);
+customElements.define('smdui-tooltip-new', Tooltip);

@@ -3,7 +3,27 @@
 // //*and the defer attribute should be added for optimal loading. Especially
 // //*if the components have to be created on page load like here (demo.init()). Otherwise 
 // //*the elements try to append to elements that have not yet been initialised.
+let body = document.querySelector('body');
+let wrapper = document.querySelector('.wrapper');
+let content = document.querySelector('.content-div');
+let btn = sui.button({
+    text: "Open Dialog",
+    type: 'small'
+});
 
+content.appendChild(btn);
+sui.addTooltip(btn, 'This is a tooltip');
+btn.addEventListener('click', () => {
+    let dialog = sui.dialog({ text: 'Dialog Demo' });
+    body.appendChild(dialog);
+    let dialogContent = sui.tabs();
+    dialogContent.addTab('HI', () => { console.log('hi') });
+    dialog.content = dialogContent;
+    dialog.open();
+});
+
+let dropdown = sui.dropdown({ text: 'Dropdown', content: [{ name: 'Test', cb: function() { console.log('Test') } }] });
+content.appendChild(dropdown);
 // (function(root) {
 
 //     const demo = {
@@ -190,60 +210,54 @@
 
 // demo.init();
 
-let body = document.querySelector('body');
-let wrapper = document.querySelector('.wrapper');
-let content = document.querySelector('.content-div');
 
-let navBar = smdui('nav-bar');
-navBar.addTab('Home', () => { console.log('Nav=>home') });
-navBar.addTab('Contact', () => { console.log('Nav=>contact') });
-body.prepend(navBar);
+// let card = smdui('card', content);
+// card.heading = "SMDUI-Card";
 
-let card = smdui('card', content);
-card.heading = "SMDUI-Card";
-let nv = [];
-for (let i = 0; i <= 8; i++) {
-    nv[i] = smdui('name-value');
-    nv[i].name = 'Cube of the following is a longer sentence: ' + i;
-    nv[i].value = Math.pow(i, 3);
-    nv[i].unit = '*';
-    card.addContent(nv[i]);
-}
+// let nv = [];
+// for (let i = 0; i <= 8; i++) {
+//     nv[i] = smdui('name-value');
+//     nv[i].name = 'Cube of the following is a longer sentence: ' + i;
+//     nv[i].value = Math.pow(i, 3);
+//     nv[i].unit = '*';
+//     card.addContent(nv[i]);
+// }
 
 
-let dataPanel = smdui('data-panel', content);
-let deviceEl = document.createElement('div');
-let deviceSpan = document.createElement('span');
-let faStylesheet = document.createElement('link');
-faStylesheet.setAttribute('rel', 'stylesheet');
-faStylesheet.setAttribute('href', '../fontAwesome/css/all.min.css');
-dataPanel.shadowRoot.prepend(faStylesheet);
+// let dataPanel = smdui('data-panel', content);
+// let deviceEl = document.createElement('div');
+// let deviceSpan = document.createElement('span');
+// let faStylesheet = document.createElement('link');
+// faStylesheet.setAttribute('rel', 'stylesheet');
+// faStylesheet.setAttribute('href', '../fontAwesome/css/all.min.css');
+// dataPanel.shadowRoot.prepend(faStylesheet);
 
-deviceSpan.classList.add('fas');
-deviceSpan.classList.add('fa-sync-alt');
+// deviceSpan.classList.add('fas');
+// deviceSpan.classList.add('fa-sync-alt');
 
-deviceEl.appendChild(deviceSpan);
-dataPanel.addItem(deviceEl);
+// deviceEl.appendChild(deviceSpan);
+// dataPanel.addItem(deviceEl);
 
-deviceEl.addEventListener('mouseover', () => { console.log(dataPanel.panelArr) })
+// deviceEl.addEventListener('mouseover', () => { console.log(dataPanel.panelArr) })
 
 
-let btn = smdui('button', content);
-btn.text = 'Open Dialog';
-btn.type = 'small';
-btn.addEventListener('click', () => {
-    let dialog = smdui('dialog', body);
-    dialog.heading = 'LoggerV2-Relay1';
-    let dialogContent = smdui('tabs');
-    dialogContent.addTab('HI', () => { console.log('hi') });
-    dialog.content = dialogContent;
-    dialog.open();
-});
+// let btn = smdui.button();
+// content.appendChild(btn);
+// btn.text = 'Open Dialog';
+// btn.type = 'small';
+// btn.addEventListener('click', () => {
+//     let dialog = smdui('dialog', body);
+// dialog.heading = 'LoggerV2-Relay1';
+// let dialogContent = smdui('tabs');
+// dialogContent.addTab('HI', () => { console.log('hi') });
+// dialog.content = dialogContent;
+// dialog.open();
+// });
 
-let dropdown = smdui('dropdown', content);
-dropdown.text = 'Dropdown'
-dropdown.items = [{ name: 'Test', cb: function() { console.log('Test') } }];
+// let dropdown = smdui('dropdown', content);
+// dropdown.text = 'Dropdown'
+// dropdown.items = [{ name: 'Test', cb: function() { console.log('Test') } }];
 
-let paginator = smdui('paginator', content);
-paginator.addPages({ pages: 15 });
+// let paginator = smdui('paginator', content);
+// paginator.addPages({ pages: 15 });
 // card.appendChild(paginator);

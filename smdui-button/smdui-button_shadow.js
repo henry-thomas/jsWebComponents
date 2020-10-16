@@ -1,35 +1,32 @@
 class Button extends HTMLElement {
     constructor() {
         super();
+        this.attachShadow({ mode: 'open' });
         this.init();
+        this.stylesheetPath = '';
     }
 
     init() {
-        this.tooltipEl = sui.tooltip();
-        this.content = document.createElement('span');;
+        this.button = document.createElement('button');
     }
 
     connectedCallback() {
-        this.classList.add('sui-btn');
-        //        let btnContent = document.createElement('span');
-
-        this.appendChild(this.content);
+        const linkElem = document.createElement('link'); //link for external stylesheet
+        linkElem.setAttribute('rel', 'stylesheet');
+        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-button/smdui-button.css');
+        this.shadowRoot.appendChild(linkElem);
 
         if (!this.hasAttribute('type')) {
             this.setAttribute('type', 'small--button');
         }
-    }
-
-    set tooltip(tooltip) {
-        if (this.tooltipEl) {
-            this.tooltipEl.text = tooltip;
-            this.tooltipEl.element = this.content;
-        }
+        this.shadowRoot.appendChild(this.button);
     }
 
     set text(text) {
         this.setAttribute('text', text);
-        this.content.innerHTML = text;
+        this.button.innerHTML = text;
+
+        return this;
     }
 
     get text() {
@@ -38,6 +35,7 @@ class Button extends HTMLElement {
 
     set type(type) {
         this.setAttribute('type', type);
+        return this;
     }
 
     get type() {
@@ -51,7 +49,7 @@ class Button extends HTMLElement {
     attributeChangedCallback(name, oldVal, newVal) {
         if (name === 'text') {
             if (this.hasAttribute('text')) {
-                this.content.innerHTML = newVal;
+                this.button.innerHTML = newVal;
             }
         }
         if (name === 'disabled') {
@@ -67,32 +65,27 @@ class Button extends HTMLElement {
     }
 
     applyType(type) {
-        if (this.classList.length > 0) {
+        if (this.button.classList.length > 0) {
             for (let i = 0; i <= this.classList.length; i++) {
-                this.classList.remove(this.classList[i]);
+                this.button.classList.remove(this.button.classList[i]);
             }
         }
 
         switch (type) {
             case 'danger':
-                this.classList.add('sui-btn-danger--button');
-                this.classList.add('sui-btn');
+                this.button.classList.add('danger--button');
                 break;
             case 'warning':
-                this.classList.add('sui-btn-warning--button');
-                this.classList.add('sui-btn');
+                this.button.classList.add('warning--button');
                 break;
             case 'primary':
-                this.classList.add('sui-btn-primary--button');
-                this.classList.add('sui-btn');
+                this.button.classList.add('primary--button');
                 break;
             case 'secondary':
-                this.classList.add('sui-btn-secondary--button');
-                this.classList.add('sui-btn');
+                this.button.classList.add('secondary--button');
                 break;
             case 'small':
-                this.classList.add('sui-btn-default--button');
-                this.classList.add('sui-btn');
+                this.button.classList.add('small--button');
                 break;
             default:
                 return;
@@ -101,4 +94,4 @@ class Button extends HTMLElement {
 
 }
 
-customElements.define('smdui-button', Button);
+// customElements.define('smdui-button', Button);
