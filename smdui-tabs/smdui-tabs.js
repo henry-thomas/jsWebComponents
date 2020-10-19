@@ -83,8 +83,8 @@ class Tabs extends HTMLElement {
             this.pagesArr[i].classList.remove('sui-tabs-pageVisible');
             this.pagesArr[i].classList.add('sui-tabs-pageHidden');
         }
-        page.classList.add('sui-tabs-visible');
-        page.classList.remove('sui-tabs-hidden');
+        page.classList.add('sui-tabs-pageVisible');
+        page.classList.remove('sui-tabs-pageHidden');
     }
 
     get selectedCollection() {
