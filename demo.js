@@ -38,13 +38,13 @@ content.appendChild(dropdown);
 // (function(root) {
 
 //     const demo = {
-//         init: function() {
+//         init:function() {
 //             this.body = document.querySelector('.wrapper');
 //             this.contentDiv = document.querySelector('.content-div');
 
 //             this.render();
 //         },
-
+ 
 //         render: function() {
 //             this.createNavBar();
 //             this.createTabs();

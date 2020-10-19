@@ -45,9 +45,9 @@ class Card extends HTMLElement {
         try {
             this.contentDiv.appendChild(content);
             this.contentItems.push(content);
-        } catch {
+        } catch(e) {
             let message = content + " Should be an html element. May have nested elements, but only one parent.";
-            console.warn(message);
+            console.warn(e + '--' + message);
         }
         return this;
     }
@@ -63,8 +63,8 @@ class Card extends HTMLElement {
                 this.contentDiv.removeChild(this.contentItems[index]);
                 this.contentItems.splice(index, 1);
             }
-        } catch (error) {
-            console.warn(error);
+        } catch (e) {
+            console.warn(e);
         }
         return this;
     }

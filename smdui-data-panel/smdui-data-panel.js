@@ -91,8 +91,8 @@ class DataPanel extends HTMLElement {
                 this.panelArr.splice(index, 1);
             }
 
-        } catch (error) {
-            console.warn(error);
+        } catch (e) {
+            console.warn(e);
         }
         return this;
     }
