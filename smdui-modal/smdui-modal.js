@@ -2,7 +2,6 @@ class Modal extends HTMLElement {
 
     constructor() {
         super();
-        this.attachShadow({ mode: "open" });
         this.isOpen = false;
         this.init();
         this.stylesheetPath = '';
@@ -35,17 +34,6 @@ class Modal extends HTMLElement {
         this.actionsSlot = document.createElement('slot');
         this.actionsSlot.setAttribute('name', 'actions');
 
-        this.backdrop.addEventListener('click', this._cancel.bind(this))
-        this.shadowRoot.appendChild(this.backdrop);
-        this.shadowRoot.appendChild(this.modal);
-        this.modal.appendChild(this.header);
-        this.header.appendChild(this.head);
-        this.modal.appendChild(this.mainSection);
-        this.mainSection.appendChild(this.mainSlot);
-        this.modal.appendChild(this.footer);
-        this.footer.appendChild(this.footerSlot);
-        this.modal.appendChild(this.actionsSection);
-        this.actionsSection.appendChild(this.actionsSlot);
     }
 
     set heading(heading) {
@@ -63,7 +51,18 @@ class Modal extends HTMLElement {
         const linkElem = document.createElement('link'); //link for external stylesheet
         linkElem.setAttribute('rel', 'stylesheet');
         linkElem.setAttribute('href', this.stylesheetPath + '/smdui-modal/smdui-modal.css');
-        this.shadowRoot.appendChild(linkElem);
+        this.appendChild(linkElem);
+        this.backdrop.addEventListener('click', this._cancel.bind(this))
+        this.appendChild(this.backdrop);
+        this.appendChild(this.modal);
+        this.modal.appendChild(this.header);
+        this.header.appendChild(this.head);
+        this.modal.appendChild(this.mainSection);
+        this.mainSection.appendChild(this.mainSlot);
+        this.modal.appendChild(this.footer);
+        this.footer.appendChild(this.footerSlot);
+        this.modal.appendChild(this.actionsSection);
+        this.actionsSection.appendChild(this.actionsSlot);
 
         if (!this.hasAttribute('heading')) {
             this.setAttribute('heading', this.heading);
@@ -95,18 +94,20 @@ class Modal extends HTMLElement {
     open() {
         this.setAttribute('opened', '');
         this.isOpen = true;
+        this.backdrop.classList.add('opened');
+        this.modal.classList.add('opened');
     }
 
     close() {
         if (this.hasAttribute('opened')) {
             this.removeAttribute('opened');
         }
+        this.backdrop.classList.remove('opened');
+        this.modal.classList.remove('opened');
         this.isOpen = false;
     }
 
     addButton(name, cb) {
-        import (this.buttonJsPath).catch(() => { return; });
-
         let newButton = document.createElement('smdui-button');
         newButton.text = (name);
         newButton.addEventListener('click', cb);

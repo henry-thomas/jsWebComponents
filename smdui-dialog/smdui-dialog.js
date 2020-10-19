@@ -1,10 +1,7 @@
 class Dialog extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' });
         this.init();
-        this.stylesheetPath = '';
-        this.faStylesheetPath = 'fontAwesome/css/all.min.css';
         this.maxWidth = window.matchMedia("(max-width: 640px)");
         this.onWidthChange(this.maxWidth);
         this.maxWidth.addListener(this.onWidthChange.bind(this));
@@ -21,14 +18,11 @@ class Dialog extends HTMLElement {
             }
         }.bind(this);
 
-        //        this.onHeightChange(this.maxHeight);
     }
 
     init() {
         this.wrapper = document.createElement('div');
         this.wrapper.classList.add('smdui-dialog-wrapper');
-        //        this.wrapper.style.height = 'min-content';
-        //        this.wrapper.style.width = '300px';
         this.headerDiv = document.createElement('div');
         this.headerDiv.classList.add('smdui-dialog-header');
         this.contentDiv = document.createElement('div');
@@ -43,20 +37,11 @@ class Dialog extends HTMLElement {
         this.headerDiv.appendChild(this.closeButton);
         this.wrapper.appendChild(this.headerDiv);
         this.wrapper.appendChild(this.contentDiv);
-        this.shadowRoot.appendChild(this.wrapper);
 
     }
 
     connectedCallback() {
-        const linkElem = document.createElement('link'); //link for external stylesheet
-        linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-dialog/smdui-dialog.css');
-        this.shadowRoot.appendChild(linkElem);
-
-        const faStylesheetLink = document.createElement('link'); //link for external stylesheet
-        faStylesheetLink.setAttribute('rel', 'stylesheet');
-        faStylesheetLink.setAttribute('href', this.faStylesheetPath);
-        this.shadowRoot.appendChild(faStylesheetLink);
+        this.appendChild(this.wrapper);
         this.dragElement(this.wrapper);
     }
 
@@ -80,19 +65,16 @@ class Dialog extends HTMLElement {
         this.wrapper.classList.add('open');
         this.wrapper.style.left = (innerWidth - (this.wrapper.clientWidth + innerWidth) / 2).toString() + "px";
         this.wrapper.style.top = (innerHeight - (this.wrapper.clientHeight + innerHeight) / 2).toString() + "px";
-        //        this.wrapper.style.width = '';
     }
 
     close() {
         this.wrapper.classList.remove('open');
-        console.log('Close');
         this.wrapper.style = '';
         this.remove();
     }
 
     setContent(el) {
         try {
-            console.log(el);
             if (this.contentDiv.lastChild) {
                 this.contentDiv.removeChild(this.contentDiv.lastChild);
             }

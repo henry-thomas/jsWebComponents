@@ -9,7 +9,6 @@ class Tooltip extends HTMLElement {
 
     set text(text) {
         if (text) {
-            console.log(text);
             this.setAttribute('text', text);
         } else if (this.hasAttribute('text')) {
             this._tooltipText = this.getAttribute('text') || '';
@@ -39,7 +38,6 @@ class Tooltip extends HTMLElement {
         this.appendChild(this.tooltipContainer);
         this._render();
     };
-
     attributeChangedCallback(name, oldValue, newValue) {
         if (oldValue === newValue) {
             return;
@@ -58,8 +56,6 @@ class Tooltip extends HTMLElement {
         this._tooltipTarget.removeEventListener('mouseleave', this._hideTooltip);
     }
 
-
-
     _render() {
         this.tooltipContainer.textContent = this._tooltipText || "";
         if (this._tooltipVisible) {
@@ -72,10 +68,13 @@ class Tooltip extends HTMLElement {
     }
 
     _showTooltip() {
-        this._tooltipVisible = true;
-        this._render();
+        this.timer = setTimeout(function() {
+            this._tooltipVisible = true;
+            this._render();
+        }.bind(this), 1500);
     }
     _hideTooltip() {
+        clearTimeout(this.timer);
         this._tooltipVisible = false;
         this._render();
     }

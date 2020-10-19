@@ -3,15 +3,17 @@
     background: white;
     flex-direction: column;
     align-items: center;
-    position: absolute;
-    min-width: 200px;
-    min-height: fit-content;
+    position: fixed;
+    max-height: 50%;
     border: 1px solid #cccccc;
     border-radius: 3px;
-    z-index: 10;
+    z-index: 501;
     opacity: 0;
-    top: 30%;
-    left: 30%;
+    top: 20%;
+}
+
+.smdui-dialog-wrapper-active {
+    z-index: 502;
 }
 
 .smdui-dialog-header {
@@ -27,13 +29,13 @@
 .smdui-dialog-wrapper.open {
     pointer-events: all;
     opacity: 1;
-    transition: opacity 300ms;
 }
 
 .smdui-dialog-content {
     display: flex;
     flex-direction: column;
     min-height: 20px;
+    overflow-y: auto;
 }
 
 .smdui-dialog-close-button {
@@ -57,4 +59,10 @@
     font-weight: bold;
     font-size: 20px;
     pointer-events: none;
+}
+
+@media (max-width: 640px) {
+    .smdui-dialog-wrapper {
+        height: 30%;
+    }
 }

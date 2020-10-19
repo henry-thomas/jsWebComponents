@@ -22,8 +22,19 @@ btn.addEventListener('click', () => {
     dialog.open();
 });
 
-let dropdown = sui.dropdown({ text: 'Dropdown', content: [{ name: 'Test', cb: function() { console.log('Test') } }] });
+let createModal = function() {
+    let modal = sui.modal();
+    modal.heading = 'Modal Heading';
+    let content = document.createElement('span');
+    content.innerHTML = 'Hello Modal';
+    modal.content = content;
+    body.appendChild(modal);
+    modal.open();
+}
+
+let dropdown = sui.dropdown({ text: 'Dropdown', content: [{ name: 'Test', cb: createModal }] });
 content.appendChild(dropdown);
+
 // (function(root) {
 
 //     const demo = {

@@ -1,4 +1,4 @@
-.wrapper {
+.sui-tabs-wrapper {
     width: 100%;
     height: auto;
     background-color: white;
@@ -8,7 +8,7 @@
     justify-content: flex-start;
 }
 
-.tab-tab-area {
+.sui-tabs-tab-area {
     width: 100%;
     height: auto;
     background-color: white;
@@ -19,7 +19,7 @@
     flex-wrap: wrap;
 }
 
-.tab-page {
+.sui-tabs-tab-page {
     width: 100%;
     height: auto;
     background-color: white;
@@ -30,7 +30,7 @@
     align-content: center;
 }
 
-.tab {
+.sui-tabs-tab {
     width: max-content;
     min-width: 35px;
     padding: 0.5rem;
@@ -43,28 +43,28 @@
     border: 2px solid white;
 }
 
-.tab:hover {
+.sui-tabs-tab:hover {
     /* border-bottom: 2px solid lightgrey; */
     transition: all ease-in 0.2s;
     cursor: pointer;
 }
 
-.selected {
+.sui-tabs-selected {
     border-bottom: 2px solid rgb(255, 0, 85);
     /* transition: height ease-in 0.4s; */
 }
 
-.tab-content {
+.sui-tabs-tab-content {
     font-family: "Roboto", "Helvetica Neue", sans-serif;
     font-size: 14px;
     color: lightslategrey;
 }
 
-.selected span {
+.sui-tabs-selected span {
     color: mediumblue;
 }
 
-.device-alert-content {
+.sui-tabs-device-alert-content {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

@@ -12,17 +12,13 @@
 // import '/smdui-button/smdui-button-1.0.1.js';
 
 (function(root) {
-    let Component = function(component, parentEl) {
-        return new Component.init(component, parentEl);
+    let Component = function() {
+        return new Component.init();
     };
 
-    Component.init = function(component = null, parentEl = null) {
-        if (component !== null || undefined) {
-            //            return Component.prototype.render(component, parentEl);
-        }
+    Component.init = function() {
         this.elements = {};
     };
-
 
     Component.prototype.addFunctions = function(element) {
         element.hide = function() {
@@ -112,6 +108,17 @@
         }
         this.addElement('tabs', tabs);
         return tabs;
+    };
+    Component.prototype.modal = function(cfg) {
+        // cfg=[{tab: string, page: element, cb: function}]
+        let modal = document.createElement('smdui-modal');
+        if (cfg) {
+            if (cfg.heading) {
+                modal.heading = cfg.heading;
+            }
+        }
+        this.addElement('modal', modal);
+        return modal;
     };
 
     //utils

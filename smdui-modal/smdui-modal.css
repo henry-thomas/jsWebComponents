@@ -36,6 +36,19 @@
     opacity: 0;
     pointer-events: none;
     font-family: "Roboto", "Helvetica Neue", sans-serif;
+    transition: all 200ms;
+}
+
+#backdrop.opened {
+    opacity: 1;
+    pointer-events: all;
+    transition: all 200ms;
+}
+
+#modal.opened {
+    opacity: 1;
+    pointer-events: all;
+    top: 30vh;
 }
 
 header {
