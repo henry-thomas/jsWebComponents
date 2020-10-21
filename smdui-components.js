@@ -121,6 +121,15 @@
         return modal;
     };
 
+    Component.prototype.paginator = function(cfg) {
+        let paginator = document.createElement('smdui-paginator');
+        if (cfg) {
+
+        }
+        this.addElement('paginator', paginator);
+        return paginator;
+    };
+
     //utils
     Component.prototype.addTooltip = function(target, text) {
         if (typeof(target) !== 'object') {

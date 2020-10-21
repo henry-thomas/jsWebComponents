@@ -44,7 +44,7 @@ content.appendChild(dropdown);
 
 //             this.render();
 //         },
- 
+
 //         render: function() {
 //             this.createNavBar();
 //             this.createTabs();
@@ -269,6 +269,6 @@ content.appendChild(dropdown);
 // dropdown.text = 'Dropdown'
 // dropdown.items = [{ name: 'Test', cb: function() { console.log('Test') } }];
 
-// let paginator = smdui('paginator', content);
-// paginator.addPages({ pages: 15 });
-// card.appendChild(paginator);
+let paginator = sui.paginator();
+paginator.addPages({ pages: 15 });
+content.appendChild(paginator);

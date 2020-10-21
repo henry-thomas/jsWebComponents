@@ -50,15 +50,16 @@ class Paginator extends HTMLElement {
         linkElem.setAttribute('href', this.stylesheetPath + '/smdui-paginator/smdui-paginator.css');
         this.shadowRoot.appendChild(linkElem);
 
-        if (!this.hasAttribute('selected-page')) {
-            this.setAttribute('selected-page', 1);
+        if (!this.hasAttribute('current-page')) {
+            this.setAttribute('current-page', 1);
         }
         if (!this.hasAttribute('page-size')) {
             this.setAttribute('page-size', 10);
         }
-        if (!this.hasAttribute('visible-tabs')) {
-            this.setAttribute('visible-tabs', 4);
+        if (!this.hasAttribute('max-pages')) {
+            this.setAttribute('max-pages', 5);
         }
+        this.paginate();
     }
 
     set pageSize(pageSize) {
@@ -69,73 +70,81 @@ class Paginator extends HTMLElement {
 
     get pageSize() {
         if (this.hasAttribute('page-size')) {
-            return this.getAttribute('page-size');
+            return Number(this.getAttribute('page-size'));
         }
     }
 
-    set selectedPage(selectedPage) {
-        if (typeof(selectedPage) === 'number') {
-            this.setAttribute('selected-page', selectedPage)
+    set currentPage(currentPage) {
+        if (typeof(currentPage) === 'number') {
+            this.setAttribute('current-page', currentPage)
         }
     }
 
-    get selectedPage() {
-        if (this.hasAttribute('selected-page')) {
-            return this.getAttribute('selected-page');
+    get currentPage() {
+        if (this.hasAttribute('current-page')) {
+            return Number(this.getAttribute('current-page'));
         }
     }
 
-    set visibleTabs(visibleTabs) {
-        if (typeof(visibleTabs === 'number')) {
-            if (visibleTabs < 3) {
-                visibleTabs = 3;
+    set maxPages(maxPages) {
+        if (typeof(maxPages === 'number')) {
+            if (maxPages < 3) {
+                maxPages = 4;
             }
-            this.setAttribute('visible-tabs', visibleTabs);
+            this.setAttribute('max-pages', maxPages);
         }
     }
 
-    get visibleTabs() {
-        if (this.hasAttribute('visible-tabs')) {
-            return this.getAttribute('visible-tabs');
+    get maxPages() {
+        if (this.hasAttribute('max-pages')) {
+            return Number(this.getAttribute('max-pages'));
         }
+    }
+
+    set totalPages(totalPages) {
+        this.setAttribute('total-pages', totalPages);
+    }
+
+    get totalPages() {
+        Number(this.getAttribute('total-pages'));
     }
 
     addPages(data) {
         this.pagesDiv.innerHTML = '';
-        this.pagesArr = [];
+        // this.pagesArr = [];
         this.visiblePagesArr = [];
         if (data.pages) {
             this.lastItem = data.pages;
-            for (let i = 1; i <= data.pages; i++) {
-                this.addPageButton(i, this.lastItem);
-            }
+            // for (let i = 1; i <= data.pages; i++) {
+            //     this.addPageButton(i, this.lastItem);
+            // }
+            this.totalPages = data.pages;
+            // this.paginate();
         }
-        this.handleSelectedItemChange();
-        this.handleVisibleTabs();
     }
 
     navToStart() {
-        this.selectedPage = 1;
-        this.handleVisibleTabs(true, false);
+        this.currentPage = 1;
+        this.paginate();
     }
 
     navPrev() {
-        if (this.selectedPage > 1) {
-            this.selectedPage = Number(this.selectedPage) - 1;
-            this.handleVisibleTabs();
+        if (this.currentPage > 1) {
+            this.currentPage = Number(this.currentPage) - 1;
+            this.paginate();
         }
     }
 
     navNext() {
-        if (this.selectedPage < this.lastItem) {
-            this.selectedPage = Number(this.selectedPage) + 1;
-            this.handleVisibleTabs();
+        if (this.currentPage < this.lastItem) {
+            this.currentPage = Number(this.currentPage) + 1;
+            this.paginate();
         }
     }
 
     navToEnd() {
-        this.selectedPage = this.lastItem;
-        this.handleVisibleTabs(false, true);
+        this.currentPage = this.lastItem;
+        this.paginate();
     }
 
     addPageButton(text, lastItem) {
@@ -144,22 +153,16 @@ class Paginator extends HTMLElement {
         pageButton.innerHTML = text;
         this.pagesDiv.appendChild(pageButton);
         pageButton.addEventListener('click', () => {
-            this.selectedPage = Number(text);
-            this.handleVisibleTabs()
-                // console.log({ page: this.selectedPage, size: this.pageSize })
+            this.currentPage = Number(text);
+            this.paginate()
+            console.log({ page: this.currentPage, size: this.pageSize })
         });
         this.pagesArr.push(pageButton);
+        return pageButton;
     };
 
     handleSelectedItemChange() {
-        for (let i = 1; i <= this.pagesArr.length; i++) {
-            if (Number(this.selectedPage) === i) {
-                this.pagesArr[i - 1].classList.add('smdui-paginator-selected-item');
-            } else {
-                this.pagesArr[i - 1].classList.remove('smdui-paginator-selected-item');
-            }
-        }
-        if (Number(this.selectedPage) === 1) {
+        if (Number(this.currentPage) === 1) {
             this.prevPage.classList.add('paginator-nav-disabled');
             this.firstPageNav.classList.add('paginator-nav-disabled');
         } else {
@@ -167,7 +170,7 @@ class Paginator extends HTMLElement {
             this.firstPageNav.classList.remove('paginator-nav-disabled');
         }
 
-        if (Number(this.selectedPage) === this.lastItem) {
+        if (Number(this.currentPage) === this.lastItem) {
             this.nextPage.classList.add('paginator-nav-disabled');
             this.lastPageNav.classList.add('paginator-nav-disabled');
         } else {
@@ -176,95 +179,123 @@ class Paginator extends HTMLElement {
         }
     }
 
-    handleVisibleTabs(navToStart, navToEnd) {
-        if (Number(this.selectedPage) === this.lastItem && !navToEnd) {
-            navToEnd = true;
-            // return;
+    paginate() {
+
+        let totalPages = Number(this.getAttribute('total-pages'));
+        let currentPage = this.currentPage;
+        let pageSize = this.pageSize;
+        let maxPages = this.maxPages;
+        let totalItems = (totalPages * pageSize);
+
+        // ensure current page isn't out of range
+        if (currentPage < 1) {
+            currentPage = 1;
+        } else if (currentPage > totalPages) {
+            currentPage = totalPages;
         }
-        // console.log(this.lastItem - (this.lastItem - this.visibleTabs))
-        if (Number(this.selectedPage) > (this.lastItem - this.visibleTabs) && !navToEnd) {
-            navToEnd = true;
-            // return;
-        }
-        if (this.visibleTabs > 1) {
-            let start = (this.selectedPage) - 1;
-            let end = (this.lastItem) - 1;
-            if (this.pagesArr.length <= this.visibleTabs) {
-                this.visibleTabs = this.pagesArr.length - 1;
-            }
-            if (navToEnd) {
-                this.visiblePagesArr = [];
-                for (let i = end - Number(this.visibleTabs) + 1; i <= end; i++) {
-                    this.visiblePagesArr.push(this.pagesArr[i])
-                }
-                if (!this.pagesArr[start - 1]) {
-                    if (this.pagesArr[start + Number(this.visibleTabs)]) {
-                        this.visiblePagesArr.push(this.pagesArr[start + Number(this.visibleTabs)])
-                    }
-                }
-                if (!this.pagesArr[end + 1]) {
-                    if (this.pagesArr[start + Number(this.visibleTabs)]) {
-                        this.visiblePagesArr.push(this.pagesArr[start + Number(this.visibleTabs)])
-                    }
-                }
-                this.pagesDiv.innerHTML = '';
-                for (let i = 0; i < this.visibleTabs; i++) {
-                    this.pagesDiv.appendChild(this.visiblePagesArr[i]);
-                }
-            } else if (end !== undefined && start !== undefined && this.pagesArr !== undefined) {
-                if (((end) - (start)) - this.visibleTabs > -this.visibleTabs) {
-                    this.visiblePagesArr = [];
-                    for (let i = start - 1; i <= start + Number(this.visibleTabs) - 1; i++) {
-                        if (this.pagesArr[i]) {
-                            this.visiblePagesArr.push(this.pagesArr[i])
-                        }
-                    }
-                    for (let i = start - 1; i < start + Number(this.visibleTabs) - 1; i++) {
-                        if (i === start - 1 && !this.pagesArr[i]) {
-                            if (this.pagesArr[start + Number(this.visibleTabs)]) {
-                                this.visiblePagesArr.push(this.pagesArr[start + Number(this.visibleTabs) - 1])
-                            }
-                        }
-                        if (i === end + 1 && !this.pagesArr[i]) {
-                            if (this.pagesArr[end - Number(this.visibleTabs)]) {
-                                this.visiblePagesArr.unshift(this.pagesArr[end - Number(this.visibleTabs) + 1])
-                            }
-                        }
-                    }
-                    this.pagesDiv.innerHTML = '';
-                    for (let i = 0; i < this.visibleTabs; i++) {
-                        if (this.visiblePagesArr[i]) {
-                            this.pagesDiv.appendChild(this.visiblePagesArr[i]);
-                        }
-                    }
-                }
+
+        let startPage, endPage;
+        if (totalPages <= maxPages) {
+            // total pages less than max so show all pages
+            startPage = 1;
+            endPage = totalPages;
+        } else {
+            // total pages more than max so calculate start and end pages
+            let maxPagesBeforeCurrentPage = Math.floor(maxPages / 2);
+            let maxPagesAfterCurrentPage = Math.ceil(maxPages / 2) - 1;
+            if (currentPage <= maxPagesBeforeCurrentPage) {
+                // current page near the start
+                startPage = 1;
+                endPage = maxPages;
+            } else if (currentPage + maxPagesAfterCurrentPage >= totalPages) {
+                // current page near the end
+                startPage = totalPages - maxPages + 1;
+                endPage = totalPages;
+            } else {
+                // current page somewhere in the middle
+                startPage = currentPage - maxPagesBeforeCurrentPage;
+                endPage = currentPage + maxPagesAfterCurrentPage;
             }
         }
+
+        // calculate start and end item indexes
+        let startIndex = (currentPage - 1) * pageSize;
+        let endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+
+        // create an array of pages to ng-repeat in the pager control
+        let pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => startPage + i);
+
+        this.currentPage = currentPage;
+        this.startPage = startPage;
+        this.endPage = endPage;
+        this.startIndex = startIndex;
+        this.endIndex = endIndex;
+        this.pages = pages;
+
+        this.pagesArr = [];
+        this.pagesDiv.innerHTML = '';
+        for (let i = startPage; i <= endPage; i++) {
+            let pageButton = this.addPageButton(i);
+            if (this.currentPage === i) {
+                pageButton.classList.add('smdui-paginator-selected-item');
+            } else {
+                pageButton.classList.remove('smdui-paginator-selected-item');
+            }
+        }
+        this.handleSelectedItemChange();
+
+        // return object with all pager properties required by the view
+        this.data = {
+            totalItems: totalItems,
+            currentPage: currentPage,
+            pageSize: pageSize,
+            totalPages: totalPages,
+            startPage: startPage,
+            endPage: endPage,
+            startIndex: startIndex,
+            endIndex: endIndex,
+            pages: pages
+        };
+
+        console.log(this.data);
+
+        return {
+            totalItems: totalItems,
+            currentPage: currentPage,
+            pageSize: pageSize,
+            totalPages: totalPages,
+            startPage: startPage,
+            endPage: endPage,
+            startIndex: startIndex,
+            endIndex: endIndex,
+            pages: pages
+        };
+
     }
 
     static get observedAttributes() {
-        return ['selected-page', 'page-size', 'visible-tabs'];
+        return ['current-page', 'page-size', 'max-pages', 'total-pages'];
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
         if (name === 'page-size') {
             // console.log(this.pageSize);
         };
-        if (name === 'selected-page') {
+        if (name === 'current-page') {
             if (this.pagesArr) {
-                this.handleSelectedItemChange();
-                this.previousPageVal = oldVal;
-                if (!(this.selectedPage + 1 > this.lastItem)) {
-                    this.nextPageVal = this.selectedPage + 1;
-                }
+                // this.handleSelectedItemChange();
+                // this.previousPageVal = oldVal;
+                // if (!(this.currentPage + 1 > this.lastItem)) {
+                //     this.nextPageVal = this.currentPage + 1;
+                // }
             }
         };
-        if (name === 'visible-tabs') {
-            if (this.getAttribute('visible-tabs') < 3) {
-                this.visibleTabs = 3;
+        if (name === 'max-pages') {
+            if (this.getAttribute('max-pages') < 3) {
+                this.maxPages = 3;
             }
             if (oldVal) {
-                this.handleVisibleTabs();
+                this.paginate();
             }
         };
     }
