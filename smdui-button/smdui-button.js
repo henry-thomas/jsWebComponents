@@ -1,3 +1,19 @@
+/*  Copyright (C) Solar MD (Pty) ltd - All Rights Reserved
+ * 
+ *  Unauthorized copying of this file, via any medium is strictly prohibited
+ *  Proprietary and confidential
+ *  
+ *  Written by henry, 2020
+ *  
+ *  For more information http://www.solarmd.co.za/ 
+ *  email: info@solarmd.co.za
+ *  7 Alternator Ave, Montague Gardens, Cape Town, 7441 South Africa
+ *  Phone: 021 555 2181
+ *  
+ */
+
+/* global customElements, sui */
+
 class Button extends HTMLElement {
     constructor() {
         super();
@@ -6,30 +22,31 @@ class Button extends HTMLElement {
 
     init() {
         this.tooltipEl = sui.tooltip();
-        this.content = document.createElement('span');;
+        this.button = document.createElement('button');
     }
 
     connectedCallback() {
-        this.classList.add('sui-btn');
+        this.button.classList.add('sui-btn');
         //        let btnContent = document.createElement('span');
 
-        this.appendChild(this.content);
+        this.appendChild(this.button);
 
         if (!this.hasAttribute('type')) {
             this.setAttribute('type', 'small--button');
         }
+        //            this.button.classList.add('ui-button');
     }
 
     set tooltip(tooltip) {
         if (this.tooltipEl) {
             this.tooltipEl.text = tooltip;
-            this.tooltipEl.element = this.content;
+            this.tooltipEl.element = this.button;
         }
     }
 
     set text(text) {
         this.setAttribute('text', text);
-        this.content.innerHTML = text;
+        this.button.innerHTML = text;
     }
 
     get text() {
@@ -51,7 +68,7 @@ class Button extends HTMLElement {
     attributeChangedCallback(name, oldVal, newVal) {
         if (name === 'text') {
             if (this.hasAttribute('text')) {
-                this.content.innerHTML = newVal;
+                this.button.innerHTML = newVal;
             }
         }
         if (name === 'disabled') {
@@ -74,25 +91,9 @@ class Button extends HTMLElement {
         }
 
         switch (type) {
-            case 'danger':
-                this.classList.add('sui-btn-danger--button');
-                this.classList.add('sui-btn');
-                break;
-            case 'warning':
-                this.classList.add('sui-btn-warning--button');
-                this.classList.add('sui-btn');
-                break;
-            case 'primary':
-                this.classList.add('sui-btn-primary--button');
-                this.classList.add('sui-btn');
-                break;
-            case 'secondary':
-                this.classList.add('sui-btn-secondary--button');
-                this.classList.add('sui-btn');
-                break;
             case 'small':
-                this.classList.add('sui-btn-default--button');
-                this.classList.add('sui-btn');
+                this.button.classList.add('sui-btn-default--button');
+                this.button.classList.add('sui-btn');
                 break;
             default:
                 return;

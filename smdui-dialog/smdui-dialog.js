@@ -1,3 +1,5 @@
+/* global customElements */
+
 class Dialog extends HTMLElement {
     constructor() {
         super();
@@ -8,12 +10,12 @@ class Dialog extends HTMLElement {
         this.wrapper.onmousedown = this.handleActiveDialog.bind(this);
         this.wrapper.ontouchstart = this.handleActiveDialog.bind(this);
         window.onmousedown = function(ev) {
-            if (ev.target !== this) {
+            if (ev.target !== this.headerDiv) {
                 this.wrapper.classList.remove('smdui-dialog-wrapper-active');
             }
         }.bind(this);
         window.ontouchstart = function(ev) {
-            if (ev.target !== this) {
+            if (ev.target !== this.headerDiv) {
                 this.wrapper.classList.remove('smdui-dialog-wrapper-active');
             }
         }.bind(this);
@@ -23,8 +25,11 @@ class Dialog extends HTMLElement {
     init() {
         this.wrapper = document.createElement('div');
         this.wrapper.classList.add('smdui-dialog-wrapper');
+        //        this.wrapper.classList.add('ui-widget-content');
+        this.wrapper.classList.add('ui-corner-all');
         this.headerDiv = document.createElement('div');
         this.headerDiv.classList.add('smdui-dialog-header');
+        this.headerDiv.classList.add('ui-widget-header');
         this.contentDiv = document.createElement('div');
         this.contentDiv.classList.add('smdui-dialog-content');
         this.closeButton = document.createElement('span');
@@ -62,14 +67,14 @@ class Dialog extends HTMLElement {
     }
 
     open() {
-        this.wrapper.classList.add('open');
+        this.wrapper.classList.add('smdui-dialog-open');
         this.wrapper.style.left = (innerWidth - (this.wrapper.clientWidth + innerWidth) / 2).toString() + "px";
         this.wrapper.style.top = (innerHeight - (this.wrapper.clientHeight + innerHeight) / 2).toString() + "px";
     }
 
     close() {
-        this.wrapper.classList.remove('open');
-        this.wrapper.style = '';
+        this.wrapper.classList.remove('smdui-dialog-open');
+        //        this.wrapper.style = '';
         this.remove();
     }
 
@@ -79,6 +84,7 @@ class Dialog extends HTMLElement {
                 this.contentDiv.removeChild(this.contentDiv.lastChild);
             }
             this.contentDiv.appendChild(el);
+            el.classList.add('smdui-dialog-content');
         } catch (e) {
             console.log(e + '- Dialog content should be an element with one parent, but can have nested elements');
         }

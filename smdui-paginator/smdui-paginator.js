@@ -244,7 +244,7 @@ class Paginator extends HTMLElement {
         }
         this.handleSelectedItemChange();
 
-        // return object with all pager properties required by the view
+        //  object with all pager properties required by the view
         this.data = {
             totalItems: totalItems,
             currentPage: currentPage,
@@ -258,19 +258,6 @@ class Paginator extends HTMLElement {
         };
 
         console.log(this.data);
-
-        return {
-            totalItems: totalItems,
-            currentPage: currentPage,
-            pageSize: pageSize,
-            totalPages: totalPages,
-            startPage: startPage,
-            endPage: endPage,
-            startIndex: startIndex,
-            endIndex: endIndex,
-            pages: pages
-        };
-
     }
 
     static get observedAttributes() {
@@ -278,18 +265,6 @@ class Paginator extends HTMLElement {
     }
 
     attributeChangedCallback(name, oldVal, newVal) {
-        if (name === 'page-size') {
-            // console.log(this.pageSize);
-        };
-        if (name === 'current-page') {
-            if (this.pagesArr) {
-                // this.handleSelectedItemChange();
-                // this.previousPageVal = oldVal;
-                // if (!(this.currentPage + 1 > this.lastItem)) {
-                //     this.nextPageVal = this.currentPage + 1;
-                // }
-            }
-        };
         if (name === 'max-pages') {
             if (this.getAttribute('max-pages') < 3) {
                 this.maxPages = 3;

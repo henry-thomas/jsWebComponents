@@ -1,22 +1,22 @@
 class Dropdown extends HTMLElement {
     constructor() {
         super();
-        this.attachShadow({ mode: 'open' })
         this.init();
-        this.stylesheetPath = '';
+        this.stylesheetPath = '../../../../resources/platar86/jsWebComponents';
 
     }
 
     init() {
         this.wrapper = document.createElement('div');
-        this.wrapper.classList.add('smdui-dropdown');
-        this.wrapper.classList.add('dropdown-wrapper');
+        this.wrapper.classList.add('sui-dropdown-wrapper');
+        //        this.wrapper.classList.add('dropdown-wrapper');
         this.button = document.createElement('button');
-        this.button.classList.add('smdui-dropdown');
+        this.button.classList.add('sui-dropdown-button');
+        //        this.button.classList.add('ui-button');
         this.button.classList.add('dropdown-button-init');
         this.button.classList.add('default--dropdown');
         this.button.addEventListener('click', function() {
-            if (this.shadowRoot.querySelector('.opened')) {
+            if (this.wrapper.querySelector('.sui-dropdown-content-opened')) {
                 this.close();
             } else {
                 this.open();
@@ -24,17 +24,13 @@ class Dropdown extends HTMLElement {
         }.bind(this));
         this.dropdownItemsContainer = document.createElement('div');
         this.dropdownItemsContainer.classList.add('smdui-dropdown');
-        this.dropdownItemsContainer.classList.add('dropdown-content');
+        this.dropdownItemsContainer.classList.add('sui-dropdown-content');
         this.wrapper.appendChild(this.button);
         this.wrapper.appendChild(this.dropdownItemsContainer);
-        this.shadowRoot.appendChild(this.wrapper);
     }
 
     connectedCallback() {
-        const linkElem = document.createElement('link'); //link for external stylesheet
-        linkElem.setAttribute('rel', 'stylesheet');
-        linkElem.setAttribute('href', this.stylesheetPath + '/smdui-dropdown/smdui-dropdown.css');
-        this.shadowRoot.appendChild(linkElem);
+        this.appendChild(this.wrapper);
     }
 
     set text(text) {
@@ -67,11 +63,13 @@ class Dropdown extends HTMLElement {
     }
 
     open() {
-        this.dropdownItemsContainer.classList.add('opened');
+        this.dropdownItemsContainer.classList.add('sui-dropdown-content-opened');
+        //        this.dropdownItemsContainer.classList.remove('sui-dropdown-content');
     }
 
     close() {
-        this.dropdownItemsContainer.classList.remove('opened');
+        //        this.dropdownItemsContainer.classList.add('sui-dropdown-content');
+        this.dropdownItemsContainer.classList.remove('sui-dropdown-content-opened');
     }
 
     //?[{name: "string", cb: fn()}, {name: "string", cb: fn()}, {name: "string", cb: fn()}]*//
@@ -81,8 +79,9 @@ class Dropdown extends HTMLElement {
         for (let i = 0; i < contentArr.length; i++) {
             this.contentItems[i] = document.createElement('button');
             this.contentItems[i].classList.add('smdui-dropdown');
-            this.contentItems[i].classList.add('dropdown-button');
-            this.contentItems[i].classList.add('content-item');
+            this.contentItems[i].classList.add('sui-dropdown-button');
+            //            this.contentItems[i].classList.add('ui-button');
+            this.contentItems[i].classList.add('sui-dropdown-content-item');
             if (contentArr[i].name) {
                 this.contentItems[i].innerHTML = contentArr[i].name;
             }
@@ -92,14 +91,14 @@ class Dropdown extends HTMLElement {
                 this.contentItems[i].addEventListener('click', this.close.bind(this));
             }
 
-            this.dropdownItemsContainer.appendChild(this.contentItems[i])
+            this.dropdownItemsContainer.appendChild(this.contentItems[i]);
         }
         let self = this;
         document.onclick = function(event) {
-            if (!event.target.matches('smdui-dropdown')) {
+            if (!event.target.matches('.sui-dropdown-button')) {
                 self.close();
             }
-        }
+        };
     }
 
     static get observedAttributes() {

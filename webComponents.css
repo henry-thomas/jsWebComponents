@@ -1,21 +1,28 @@
+/* Copyright (C) Solar MD (Pty) ltd - All Rights Reserved
+
+ Unauthorized copying of this file, via any medium is strictly prohibited
+ Proprietary and confidential
+ 
+ Written by SolarmdIT5, 2020
+ 
+ For more information http://www.solarmd.co.za/ 
+ email: info@solarmd.co.za
+ 7 Alternator Ave, Montague Gardens, Cape Town, 7441 South Africa
+ Phone: 021 555 2181
+ 
+*/
+
+
+/* 
+    Created on : 15 Oct 2020, 3:49:24 PM
+    Author     : SolarmdIT5
+*/
+
+
 /*BUTTON*/
 
-.sui-btn {
-    font-family: "Roboto", "Helvetica Neue", sans-serif;
-    font-weight: normal;
-    font-size: 14px;
-    border-radius: 3px;
-    border: none;
-    height: fit-content;
-    width: fit-content;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    color: #666666;
-    background-color: #f4f4f4;
-    -webkit-font-smoothing: antialiased;
-    margin: 2px;
+.sui-btn:focus {
+    outline: none;
 }
 
 .sui-btn-btn:disabled {
@@ -79,7 +86,6 @@
 /*TOOLTIP*/
 
 smdui-tooltip {
-    font-family: "Roboto", "Helvetica Neue", sans-serif;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -87,39 +93,42 @@ smdui-tooltip {
 }
 
 .sui-tt {
-    width: max-content;
     max-width: 120px;
     font-weight: lighter;
     background-color: #fff;
     color: black;
     position: absolute;
-    /* top: 0.25rem; */
     z-index: -1;
     padding: 0.15rem;
     border-radius: 3px;
     box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.26);
     opacity: 0;
-    transform: translateY(0px);
-    transition: all 150ms ease-in;
+    top: 10%;
     pointer-events: none;
 }
 
+@keyframes smdui-tooltipTransition {
+    0% {
+        opacity: 0;
+        top: 10%;
+    }
+    70% {
+        opacity: 0;
+        transform: translateY(-60%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(-100%);
+    }
+}
+
 .sui-tt-open {
-    z-index: 500;
-    opacity: 0.75;
-    transform: translateY(-100%);
-}
-
-.sui-tt:host {
-    /* position: relative;
-    display: flex;
-    justify-content: center;
-    cursor: pointer; */
-}
-
-.sui-tt:host-context(p) {
-    /* font-weight: bold;
-    border-bottom: 1px solid #ccc; */
+    z-index: 1000;
+    opacity: 1;
+    animation: smdui-tooltipTransition 500ms;
+    -webkit-animation: smdui-tooltipTransition 500ms;
+    /* Safari 4.0 - 8.0 */
+    animation-fill-mode: forwards;
 }
 
 .sui-tt-icon {
@@ -136,67 +145,70 @@ slot {
 }
 
 
-/*Dialog*/
+/*MODAL*/
 
-.smdui-dialog-wrapper {
+.sui-modal {
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+.sui-modal-opened {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.sui-modal-modal {
     display: flex;
     background: white;
     flex-direction: column;
     align-items: center;
-    position: fixed;
-    /*width: 400px;*/
-    /*min-height: fit-content;*/
-    max-height: 50%;
+    position: absolute;
+    max-width: 30%;
     border: 1px solid #cccccc;
     border-radius: 3px;
-    z-index: 501;
-    opacity: 0;
-    top: 20%;
-    /*left: 20%;*/
+    z-index: 11;
+    top: 30%;
+    left: 30%;
 }
 
-.smdui-dialog-wrapper-active {
-    z-index: 502;
+.sui-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 10;
 }
 
-.smdui-dialog-header {
+.sui-modal-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: fit-content;
+    /* height: fit-content; */
     width: 100%;
     border-bottom: 1px solid #cccccc;
     background: rgb(235, 234, 234);
 }
 
-.smdui-dialog-wrapper.open {
-    pointer-events: all;
-    opacity: 1;
-}
-
-.smdui-dialog-content {
+.sui-modal-content {
     display: flex;
     flex-direction: column;
     min-height: 20px;
-    overflow-y: auto;
 }
 
-.smdui-dialog-close-button {
+.sui-modal-close-button {
     margin-inline-start: auto;
     padding: 5px;
     color: gray;
 }
 
-.smdui-dialog-close-button:hover {
+.sui-modal-close-button:hover {
     cursor: pointer;
 }
 
-.smdui-dialog-heading {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 10px;
+.sui-modal-heading {
     font-family: "Roboto", "Helvetica Neue", sans-serif;
     font-variant: petite-caps;
     font-weight: bold;
@@ -204,30 +216,30 @@ slot {
     pointer-events: none;
 }
 
-@media (max-width: 640px) {
-    .smdui-dialog-wrapper {
-        height: 30%;
-    }
+.sui-modal-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 
 /*TABS*/
 
 .sui-tabs-wrapper {
-    width: 100%;
-    height: auto;
-    background-color: white;
-    /*border-bottom: 1px solid grey;*/
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    /*    width: 100%;
+        height: auto;
+        background-color: white;
+        border-bottom: 1px solid grey;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;*/
 }
 
 .sui-tabs-tab-area {
-    width: 100%;
-    height: auto;
-    background-color: white;
-    /*border-bottom: 1px solid grey;*/
+    /*    width: 100%;
+        height: auto;
+        background-color: white;
+        border-bottom: 1px solid grey;*/
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -235,14 +247,28 @@ slot {
 }
 
 .sui-tabs-tab-page {
-    width: 100%;
-    height: auto;
-    background-color: white;
-    /*border-bottom: 1px solid grey;*/
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-content: center;
+    /*    width: 100%;
+        height: auto;
+        background-color: white;
+        border-bottom: 1px solid grey;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;*/
+}
+
+@media (max-width: 640px) {
+    .sui-tabs-tab-page {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+}
+
+@media (max-height: 640px) {
+    .sui-tabs-tab-page {
+        max-height: 80px;
+        overflow-y: auto;
+    }
 }
 
 .sui-tabs-tab {
@@ -284,5 +310,156 @@ slot {
 }
 
 .sui-tabs-pageVisible {
+    display: block;
+}
+
+
+/*Dialog*/
+
+.smdui-dialog-wrapper {
+    position: fixed;
+    max-height: 50%;
+    z-index: 501;
+    display: none;
+    border: 1px solid grey;
+}
+
+.smdui-dialog-wrapper-active {
+    z-index: 502;
+}
+
+.smdui-dialog-header {
     display: flex;
+    background-color: #cccccc;
+}
+
+.smdui-dialog-wrapper.smdui-dialog-open {
+    display: block;
+    pointer-events: all;
+    opacity: 1;
+}
+
+
+/*.smdui-dialog-content {
+        display: flex;
+        flex-direction: column;
+        min-height: 20px;
+        overflow-y: auto;
+}*/
+
+.smdui-dialog-close-button {
+    margin-inline-start: auto;
+    padding: 5px;
+}
+
+.smdui-dialog-close-button:hover {
+    cursor: pointer;
+}
+
+.smdui-dialog-heading {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10px;
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+    font-variant: petite-caps;
+    font-weight: bold;
+    font-size: 20px;
+    pointer-events: none;
+}
+
+
+/*@media (max-height: 640px) {
+    .smdui-dialog-wrapper {
+        max-height: 60%;
+    }
+}*/
+
+
+/*DROPDOWN*/
+
+.sui-dropdown-wrapper {
+    display: inline-block;
+    max-width: min-content;
+    /*height: fit-content;*/
+}
+
+.sui-dropdown-button {
+    font-family: "Roboto", "Helvetica Neue", sans-serif;
+    border: none;
+    color: #666666;
+    /*box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);*/
+    border-radius: 3px;
+    background-color: #f4f4f4;
+    height: fit-content;
+    width: fit-content;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 80px;
+    margin: 2px;
+    font-size: 14px;
+    font-weight: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+.sui-dropdown-content-item {
+    margin: 0;
+    width: 100%;
+    z-index: 99;
+    border-radius: 0px;
+}
+
+.sui-dropdown-button:hover {
+    cursor: pointer;
+    background-color: #cccccc;
+    transition: all 80ms ease-in;
+}
+
+.sui-dropdown-button:disabled {
+    color: rgb(141, 141, 141);
+}
+
+.sui-dropdown-button:disabled:hover {
+    cursor: default;
+}
+
+.sui-dropdown-button:active {
+    outline: none;
+    border: none;
+}
+
+.sui-dropdown-button:focus {
+    outline: none;
+}
+
+.sui-dropdown-content {
+    display: none;
+    position: absolute;
+    border-radius: 3px;
+}
+
+.sui-dropdown-content.sui-dropdown-content-opened {
+    display: block;
+    z-index: 99;
+    /* width: ; */
+}
+
+.default--dropdown {
+    font-weight: normal;
+    font-size: 14px;
+    border-radius: 3px;
+    border: none;
+    height: fit-content;
+    width: fit-content;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: #666666;
+    background-color: #f4f4f4;
+    -webkit-font-smoothing: antialiased;
+    margin: 2px;
 }
